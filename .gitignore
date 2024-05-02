@@ -3,6 +3,11 @@
 /.**
 
 ### Not ignore ###
+!/.bash/
+!/.bash/*/
+!/.bash/rc/
+!/.bash/rc/**
+!/.bash/init.bash
 
 
 !/README.md
