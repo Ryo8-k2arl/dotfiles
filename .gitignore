@@ -4,6 +4,9 @@
 
 ### Not ignore ###
 
+## ci
+!/.github/
+!/.github/**
 
 !/README.md
 !/.gitignore
