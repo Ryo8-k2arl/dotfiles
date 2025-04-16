@@ -4,6 +4,11 @@
 
 ### Not ignore ###
 
+
+## rc file
+!/rc/
+!/rc/**
+
 !/README.md
 !/.gitignore
 !/LICENSE
