@@ -4,6 +4,13 @@
 
 ### Not ignore ###
 
+## document ##
+!/doc/
+/doc/*
+!/doc/learning/
+!/doc/learning/**
+
+
 !/README.md
 !/.gitignore
 !/LICENSE
