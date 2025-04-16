@@ -4,6 +4,8 @@
 
 ### Not ignore ###
 
+
+# global #
 !/README.md
 !/.gitignore
 !/LICENSE
