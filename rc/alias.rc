@@ -1,0 +1,22 @@
+
+#==============================================================#
+##          Aliases                                           ##
+#==============================================================#
+
+
+# ls:	Replace ls with eza if eza exists.
+if command -v eza > /dev/null 2>&1; then
+	alias ls='eza --color=always --group-directories-first --icons'				# preferred listing
+	alias la='eza -a --color=always --group-directories-first --icons'			# all files and dirs
+	alias ll='eza -l --color=always --group-directories-first --icons'			# long format
+	alias lla='eza -al --color=always --group-directories-first --icons'			# long format
+	alias lt='eza -aT --color=always --group-directories-first --icons'			# tree listing
+	alias l.='eza -ald --color=always --group-directories-first --icons'			# show only dotfiles
+else
+	alias ls='ls --color=always --group-directories-first --indicator-style=slash'
+	alias la='ls -a --color=always --group-directories-first --indicator-style=slash'
+	alias ll='ls -l --color=always --group-directories-first --indicator-style=slash'
+	alias lla='ls -al --color=always --group-directories-first --indicator-style=slash'
+	alias lt='ls -alR --color=always --group-directories-first --indicator-style=slash'
+	alias l.='ls -d .[a-zA-Z]* --color=always --group-directories-first --indicator-style=slash'
+fi
