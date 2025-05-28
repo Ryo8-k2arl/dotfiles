@@ -4,6 +4,9 @@
 
 ### Not ignore ###
 
+### zsh
+!/.zshenv
+
 !/README.md
 !/.gitignore
 !/LICENSE
