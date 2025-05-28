@@ -4,6 +4,10 @@
 
 ### Not ignore ###
 
+### rc
+!/env
+
+
 !/README.md
 !/.gitignore
 !/LICENSE
