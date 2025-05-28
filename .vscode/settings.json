@@ -1,3 +1,8 @@
 {
-    "shellcheck.exclude": ["2148"]
+    "shellcheck.exclude": ["2148"],
+    "[shellscript]": {
+        "editor.tabCompletion": "on",
+        "editor.insertSpaces": false,
+        "editor.tabSize": 2,
+    }
 }
