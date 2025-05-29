@@ -4,6 +4,9 @@
 
 ### Not ignore ###
 
+## special
+!/.bak/
+!/.bak/**
 
 # global #
 !/README.md
