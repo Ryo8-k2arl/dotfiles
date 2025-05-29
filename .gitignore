@@ -7,6 +7,11 @@
 ### zsh
 !/.zshenv
 
+
+# global #
 !/README.md
 !/.gitignore
 !/LICENSE
+
+!/.vscode/
+!/.vscode/**
