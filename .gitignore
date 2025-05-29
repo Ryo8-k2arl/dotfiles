@@ -11,6 +11,11 @@
 !/doc/learning/**
 
 
+
+
 !/README.md
 !/.gitignore
 !/LICENSE
+
+!/.vscode/
+!/.vscode/**
