@@ -1,0 +1,13 @@
+{
+    "shellcheck.exclude": [
+        "2148"
+    ],
+    "files.associations": {
+        "*.rc": "shellscript"
+    },
+    "[shellscript]": {
+        "editor.tabCompletion": "on",
+        "editor.insertSpaces": false,
+        "editor.tabSize": 2,
+    }
+}

@@ -4,11 +4,15 @@
 
 ### Not ignore ###
 
-
 ## rc file
 !/rc/
 !/rc/**
 
+
+# global #
 !/README.md
 !/.gitignore
 !/LICENSE
+
+!/.vscode/
+!/.vscode/**
