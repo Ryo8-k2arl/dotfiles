@@ -8,6 +8,10 @@
 !/env
 
 
+# global #
 !/README.md
 !/.gitignore
 !/LICENSE
+
+!/.vscode/
+!/.vscode/**
