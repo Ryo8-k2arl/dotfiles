@@ -21,9 +21,9 @@ fi
 
 # cat:	Replace cat with bat if bat exists.
 if command -v bat >/dev/null 2>&1; then
-	alias cat='bat'
+	alias cat='bat --color=always'
 elif command -v batcat >/dev/null 2>&1; then
-	alias cat='batcat'
+	alias cat='batcat --color=always'
 else
 	alias cat='cat'
 fi
