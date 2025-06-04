@@ -14,3 +14,11 @@ function FILTER-cd-repo() {
 	zle clear-screen
 }
 zle -N FILTER-cd-src
+
+# select the command executed in the past
+function FILTER-select-history() {
+	BUFFER=$(\history -n -r 1 | "$FILTER" --query "$LBUFFER")
+	CURSOR=$#BUFFER
+	zle clear-screen
+}
+zle -N FILTER-select-history
