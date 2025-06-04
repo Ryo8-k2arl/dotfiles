@@ -28,5 +28,5 @@ else
 	alias cat='cat'
 fi
 
-# wget
-alias wget=wget --hsts-file='$XDG_DATA_HOME/wget-hsts'
+# wget:	Configure wget's history file to follow the XDG Base Directory specification.
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
