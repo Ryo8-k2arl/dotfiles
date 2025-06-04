@@ -4,9 +4,9 @@
 
 ### Not ignore ###
 
-## rc file
-!/rc/
-!/rc/**
+## config ##
+!/.config/
+!/.config/**
 
 
 # global #
