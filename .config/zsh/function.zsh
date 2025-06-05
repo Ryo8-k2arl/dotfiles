@@ -33,5 +33,4 @@ function FILTER-select-ssh() {
 	fi
 	zle reset-prompt
 }
-
 zle -N FILTER-select-ssh
