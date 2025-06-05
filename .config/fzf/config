@@ -32,26 +32,25 @@ export FZF_DEFAULT_OPTS="
     --color 'fg+:#5edecf'
 "
 
-
 ### history's option ###
 export FZF_HISTORY_OPTS="
---style=full
---layout=reverse
---height=100%
---border --padding 1,2
---border-label '' --input-label ' Input '
---bind 'result:transform-list-label:
-    	if [[ -z $FZF_QUERY ]]; then
-      	echo \" $FZF_MATCH_COUNT items \"
-    	else
-      	echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
-    	fi
-    '
---bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
---color 'border:#aaaaaa,label:#cccccc'
---color 'list-border:#669966,list-label:#99cc99'
---color 'input-border:#996666,input-label:#ffcccc'
---color 'fg+:#5edecf'
+	--style=full
+	--layout=reverse
+	--height=100%
+	--border --padding 1,2
+	--border-label '' --input-label ' Input '
+	--bind 'result:transform-list-label:
+	    	if [[ -z $FZF_QUERY ]]; then
+	      	echo \" $FZF_MATCH_COUNT items \"
+	    	else
+	      	echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
+	    	fi
+	    '
+	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
+	--color 'border:#aaaaaa,label:#cccccc'
+	--color 'list-border:#669966,list-label:#99cc99'
+	--color 'input-border:#996666,input-label:#ffcccc'
+	--color 'fg+:#5edecf'
 "
 
 ### git repo's option ###
