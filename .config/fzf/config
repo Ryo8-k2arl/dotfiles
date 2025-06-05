@@ -41,9 +41,9 @@ export FZF_HISTORY_OPTS="
 	--border-label '' --input-label ' Input '
 	--bind 'result:transform-list-label:
 			if [[ -z $FZF_QUERY ]]; then
-			echo \" $FZF_MATCH_COUNT items \"
+			echo \\\" $FZF_MATCH_COUNT items \\\"
 			else
-			echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
+			echo \\\" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \\\"
 			fi
 		'
 	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
@@ -62,16 +62,16 @@ export FZF_GIT_REPO_SEARCH_OPTS="
 	--layout=reverse
 	--height=100%
 	--border --padding 1,2
-	--preview-window \"40%,nowrap\" --preview \"
+	--preview-window \\\"40%,nowrap\\\" --preview \\\"
 		eza -al -g --icons --color=always {}/ |
-		awk '{month=\$(NF-3); icon=\$(NF-1); name=\$NF; print icon, name}'
-		# awk '{month=\$(NF-3); icon=\$(NF-1); name=\$NF; print month \"/\" icon, name}'
-		\"
+		awk '{month=\\\$(NF-3); icon=\\\$(NF-1); name=\\\$NF; print icon, name}'
+		# awk '{month=\$(NF-3); icon=\$(NF-1); name=\$NF; print month \\\"/\\\" icon, name}'
+		\\\"
         --bind 'result:transform-list-label:
                 if [[ -z $FZF_QUERY ]]; then
-                echo \" $FZF_MATCH_COUNT items \"
+                echo \\\" $FZF_MATCH_COUNT items \\\"
                 else
-                echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
+                echo \\\" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \\\"
                 fi
         '
         --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
