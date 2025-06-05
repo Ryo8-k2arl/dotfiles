@@ -2,6 +2,10 @@
 ##          fzf's Config                                    									 ##
 #=================================================================================================#
 
+## reference
+##      https://namileriblog.com/mac/fzf/
+##      https://blog.tsub.me/post/move-from-peco-to-fzf/
+
 ### default option ###
 export FZF_DEFAULT_OPTS="
     --style=full
