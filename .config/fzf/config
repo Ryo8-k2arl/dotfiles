@@ -79,3 +79,34 @@ export FZF_GIT_REPO_SEARCH_OPTS="
         --color 'header-border:#6699cc,header-label:#99ccff'
         --color 'fg+:#5edecf'
 "
+
+### ssh host's option ###
+export FZF_SSH_HOST_SEARCH_OPTS="
+	--style=full
+	--layout=reverse
+	--height=100%
+	--border --padding 1,2
+	--preview-window \"40%,nowrap\"
+	--preview \"
+		bat -p --color=always ~/.ssh/config |
+		awk '
+			\$1 ~ \\\"Host\\\" && \$2 ~ \\\"{}\\\" { in_block = 1; print; next }
+			\$1 ~ \\\"Host\\\" && \$2 != \\\"{}\\\" { in_block = 0 }
+			in_block { print }
+		'
+		\"
+	--bind 'result:transform-list-label:
+			if [[ -z $FZF_QUERY ]]; then
+			echo \" $FZF_MATCH_COUNT items \"
+			else
+			echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
+			fi
+	'
+	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
+	--color 'border:#aaaaaa,label:#cccccc'
+	--color 'preview-border:#9999cc,preview-label:#ccccff'
+	--color 'list-border:#669966,list-label:#99cc99'
+	--color 'input-border:#996666,input-label:#ffcccc'
+	--color 'header-border:#6699cc,header-label:#99ccff'
+	--color 'fg+:#5edecf'
+"
