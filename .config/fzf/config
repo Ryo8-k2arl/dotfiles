@@ -8,28 +8,30 @@
 
 ### default option ###
 export FZF_DEFAULT_OPTS="
-    --style=full
+	--style=full
 	--layout=reverse
-    --height=100%
-    --border --padding 1,2
-    --border-label '' --input-label ' Input ' --header-label ' File Type '
-    --preview 'bat --color=always --style=numbers {}'
-    --bind 'result:transform-list-label:
-			if [[ -z $FZF_QUERY ]]; then
-				echo \" $FZF_MATCH_COUNT items \"
-			else
-				echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
-            fi
-        '
-    --bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" %s \" {}'
-    --bind 'focus:+transform-header:file --brief {} || echo \"No file selected\"'
-    --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
-    --color 'border:#aaaaaa,label:#cccccc' \
-    --color 'preview-border:#9999cc,preview-label:#ccccff' \
-    --color 'list-border:#669966,list-label:#99cc99' \
-    --color 'input-border:#996666,input-label:#ffcccc' \
-    --color 'header-border:#6699cc,header-label:#99ccff' \
-    --color 'fg+:#5edecf'
+	--height=100%
+	--border --padding 1,2
+	--border-label ''
+	--input-label ' Input '
+	--header-label ' File Type '
+	--preview 'bat --color=always --style=numbers {}'
+	--bind 'result:transform-list-label:
+		if [[ -z \$FZF_QUERY ]]; then
+			echo \" \$FZF_MATCH_COUNT items \"
+		else
+			echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
+		fi
+	'
+	--bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" %s \" {}'
+	--bind 'focus:+transform-header:file --brief {} || echo \"No file selected\"'
+	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
+	--color 'border:#aaaaaa,label:#cccccc' \
+	--color 'preview-border:#9999cc,preview-label:#ccccff' \
+	--color 'list-border:#669966,list-label:#99cc99' \
+	--color 'input-border:#996666,input-label:#ffcccc' \
+	--color 'header-border:#6699cc,header-label:#99ccff' \
+	--color 'fg+:#5edecf'
 "
 
 ### history's option ###
@@ -38,14 +40,15 @@ export FZF_HISTORY_OPTS="
 	--layout=reverse
 	--height=100%
 	--border --padding 1,2
-	--border-label '' --input-label ' Input '
+	--border-label ''
+	--input-label ' Input '
 	--bind 'result:transform-list-label:
-			if [[ -z $FZF_QUERY ]]; then
-			echo \\\" $FZF_MATCH_COUNT items \\\"
-			else
-			echo \\\" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \\\"
-			fi
-		'
+		if [[ -z \$FZF_QUERY ]]; then
+			echo \" \$FZF_MATCH_COUNT items \"
+		else
+			echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
+		fi
+	'
 	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
 	--color 'border:#aaaaaa,label:#cccccc'
 	--color 'list-border:#669966,list-label:#99cc99'
@@ -62,25 +65,27 @@ export FZF_GIT_REPO_SEARCH_OPTS="
 	--layout=reverse
 	--height=100%
 	--border --padding 1,2
-	--preview-window \\\"40%,nowrap\\\" --preview \\\"
-		eza -al -g --icons --color=always {}/ |
-		awk '{month=\\\$(NF-3); icon=\\\$(NF-1); name=\\\$NF; print icon, name}'
-		# awk '{month=\$(NF-3); icon=\$(NF-1); name=\$NF; print month \\\"/\\\" icon, name}'
-		\\\"
-        --bind 'result:transform-list-label:
-                if [[ -z $FZF_QUERY ]]; then
-                echo \\\" $FZF_MATCH_COUNT items \\\"
-                else
-                echo \\\" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \\\"
-                fi
-        '
-        --bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
-        --color 'border:#aaaaaa,label:#cccccc'
-        --color 'preview-border:#9999cc,preview-label:#ccccff'
-        --color 'list-border:#669966,list-label:#99cc99'
-        --color 'input-border:#996666,input-label:#ffcccc'
-        --color 'header-border:#6699cc,header-label:#99ccff'
-        --color 'fg+:#5edecf'
+	--input-label ' Input '
+	--preview-window \"40%,nowrap\"
+	--preview \"
+		eza -al -g --icons --color=always \$(ghq root)/{}/ |
+		awk '{month=\$(NF-3); icon=\$(NF-1); name=\$NF; print icon, name}'
+		# awk '{month=\$(NF-3); icon=\$(NF-1); name=\$NF; print month \"/\" icon, name}'
+	\"
+	--bind 'result:transform-list-label:
+		if [[ -z \$FZF_QUERY ]]; then
+			echo \" \$FZF_MATCH_COUNT items \"
+		else
+			echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
+		fi
+	'
+	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
+	--color 'border:#aaaaaa,label:#cccccc'
+	--color 'preview-border:#9999cc,preview-label:#ccccff'
+	--color 'list-border:#669966,list-label:#99cc99'
+	--color 'input-border:#996666,input-label:#ffcccc'
+	--color 'header-border:#6699cc,header-label:#99ccff'
+	--color 'fg+:#5edecf'
 "
 
 ### ssh host's option ###
@@ -91,6 +96,7 @@ export FZF_SSH_HOST_SEARCH_OPTS="
 	--layout=reverse
 	--height=100%
 	--border --padding 1,2
+	--input-label ' Input '
 	--preview-window \"40%,nowrap\"
 	--preview \"
 		bat -p --color=always ~/.ssh/config |
@@ -99,15 +105,14 @@ export FZF_SSH_HOST_SEARCH_OPTS="
 			\$1 ~ \\\"Host\\\" && \$2 != \\\"{}\\\" { in_block = 0 }
 			in_block { print }
 		'
-		\"
+	\"
 	--bind 'result:transform-list-label:
-			if [[ -z $FZF_QUERY ]]; then
-			echo \" $FZF_MATCH_COUNT items \"
-			else
-			echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
-			fi
+		if [[ -z \$FZF_QUERY ]]; then
+			echo \" \$FZF_MATCH_COUNT items \"
+		else
+			echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
+		fi
 	'
-	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
 	--color 'border:#aaaaaa,label:#cccccc'
 	--color 'preview-border:#9999cc,preview-label:#ccccff'
 	--color 'list-border:#669966,list-label:#99cc99'
