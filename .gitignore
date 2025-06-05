@@ -4,6 +4,9 @@
 
 ### Not ignore ###
 
+## config
+!/.config
+!/.config/**
 
 # global #
 !/README.md
