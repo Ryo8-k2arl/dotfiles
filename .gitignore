@@ -4,6 +4,10 @@
 
 ### Not ignore ###
 
+## config
+!/.config
+!/.config/**
+
 ### zsh
 !/.zshenv
 
