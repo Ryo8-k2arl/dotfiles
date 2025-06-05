@@ -22,3 +22,16 @@ function FILTER-select-history() {
 	zle clear-screen
 }
 zle -N FILTER-select-history
+
+# select host to ssh
+function FILTER-select-ssh() {
+	local selected_host=$(grep "Host " ~/.ssh/config | grep -v '*' | cut -b 6- | fzf --query "$LBUFFER")
+
+	if [ -n "$selected_host" ]; then
+		BUFFER="ssh ${selected_host}"
+		zle accept-line
+	fi
+	zle reset-prompt
+}
+
+zle -N FILTER-select-ssh
