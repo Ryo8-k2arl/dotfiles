@@ -54,6 +54,9 @@ export FZF_HISTORY_OPTS="
 "
 
 ### git repo's option ###
+
+## reference
+##		https://tech.mti.co.jp/entry/ac2024/kodamah/1
 export FZF_GIT_REPO_SEARCH_OPTS="
 	--style=full
 	--layout=reverse
@@ -81,6 +84,8 @@ export FZF_GIT_REPO_SEARCH_OPTS="
 "
 
 ### ssh host's option ###
+## reference
+##		https://qiita.com/hi-naoya/items/53d5fb6bb5b703cc8288#sshで接続先をインタラクティブに指定する
 export FZF_SSH_HOST_SEARCH_OPTS="
 	--style=full
 	--layout=reverse
