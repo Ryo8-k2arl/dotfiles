@@ -15,10 +15,10 @@ export FZF_DEFAULT_OPTS="
     --border-label '' --input-label ' Input ' --header-label ' File Type '
     --preview 'bat --color=always --style=numbers {}'
     --bind 'result:transform-list-label:
-        	if [[ -z $FZF_QUERY ]]; then
-          	    echo \" $FZF_MATCH_COUNT items \"
-        	else
-          	    echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
+			if [[ -z $FZF_QUERY ]]; then
+				echo \" $FZF_MATCH_COUNT items \"
+			else
+				echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
             fi
         '
     --bind 'focus:transform-preview-label:[[ -n {} ]] && printf \" %s \" {}'
@@ -40,12 +40,12 @@ export FZF_HISTORY_OPTS="
 	--border --padding 1,2
 	--border-label '' --input-label ' Input '
 	--bind 'result:transform-list-label:
-	    	if [[ -z $FZF_QUERY ]]; then
-	      	echo \" $FZF_MATCH_COUNT items \"
-	    	else
-	      	echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
-	    	fi
-	    '
+			if [[ -z $FZF_QUERY ]]; then
+			echo \" $FZF_MATCH_COUNT items \"
+			else
+			echo \" $FZF_MATCH_COUNT matches for [$FZF_QUERY] \"
+			fi
+		'
 	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
 	--color 'border:#aaaaaa,label:#cccccc'
 	--color 'list-border:#669966,list-label:#99cc99'
