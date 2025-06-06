@@ -1,0 +1,32 @@
+#=================================================================================================#
+##					Aliases																																							 ##
+#=================================================================================================#
+
+# ls:	Replace ls with eza if eza exists.
+if command -v eza >/dev/null 2>&1; then
+	alias ls='eza --color=always --group-directories-first --icons' # preferred listing
+	alias la='ls -aa'                                               # all files and dirs
+	alias ll='ls -l'                                                # long format
+	alias lla='ls -aal'                                             # long format
+	alias lt='ls -aT'                                               # tree listing
+	alias l.='ls -d .[a-zA-Z]*'                                     # show only dotfiles
+else
+	alias ls='ls --color=always --group-directories-first --indicator-style=slash'
+	alias la='ls -a'
+	alias ll='ls -l'
+	alias lla='ls -al'
+	alias lt='ls -alR'
+	alias l.='ls -d .[a-zA-Z]*'
+fi
+
+# cat:	Replace cat with bat if bat exists.
+if command -v bat >/dev/null 2>&1; then
+	alias cat='bat --color=always'
+elif command -v batcat >/dev/null 2>&1; then
+	alias cat='batcat --color=always'
+else
+	alias cat='cat'
+fi
+
+# wget:	Configure wget's history file to follow the XDG Base Directory specification.
+alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
