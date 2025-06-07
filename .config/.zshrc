@@ -39,5 +39,5 @@ source "$RCDIR/alias.rc"
 ##			Key Bindings																	 																					 ##
 #-------------------------------------------------------------------------------------------------#
 
-source "$ZRCDIR/bindkey.zsh"
+source "$RCDIR/bindkey.zsh"
 
