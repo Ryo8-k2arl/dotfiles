@@ -11,9 +11,14 @@
 #-------------------------------------------------------------------------------------------------#
 
 ## Plugin Manager
-eval "$(sheldon source)"
+if builtin command -v sheldon > /dev/null 2>&1; then
+	eval "$(sheldon source)"
+fi
+
 ## Terminal Prompt
-eval "$(starship init zsh)"
+if builtin command -v starship > /dev/null 2>&1; then
+	eval "$(starship init zsh)"
+fi
 
 
 #-------------------------------------------------------------------------------------------------#
