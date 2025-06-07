@@ -8,6 +8,9 @@
 !/.config
 !/.config/**
 
+### zsh
+!/.zshenv
+
 # global #
 !/README.md
 !/.gitignore
