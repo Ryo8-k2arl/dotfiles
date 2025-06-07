@@ -4,9 +4,12 @@
 
 ### Not ignore ###
 
-## special
-!/.bak/
-!/.bak/**
+## config
+!/.config
+!/.config/**
+
+### zsh
+!/.zshenv
 
 # global #
 !/README.md
@@ -15,3 +18,7 @@
 
 !/.vscode/
 !/.vscode/**
+
+## special
+!/.bak/
+!/.bak/**

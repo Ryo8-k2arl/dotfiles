@@ -3,11 +3,12 @@
         "2148"
     ],
     "files.associations": {
-        "*.rc": "shellscript"
+        "*.rc": "shellscript",
+        ".config/fzf/config" : "shellscript"
     },
     "[shellscript]": {
         "editor.tabCompletion": "on",
         "editor.insertSpaces": false,
-        "editor.tabSize": 2,
+        "editor.tabSize": 4,
     }
 }
