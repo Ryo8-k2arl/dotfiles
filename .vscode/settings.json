@@ -9,6 +9,6 @@
     "[shellscript]": {
         "editor.tabCompletion": "on",
         "editor.insertSpaces": false,
-        "editor.tabSize": 4,
+        "editor.tabSize": 2,
     }
 }
