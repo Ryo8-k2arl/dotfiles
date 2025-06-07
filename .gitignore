@@ -4,18 +4,28 @@
 
 ### Not ignore ###
 
-## document ##
+## config
+!/.config
+!/.config/**
+
+### zsh
+!/.zshenv
+
+## document
 !/doc/
 /doc/*
 !/doc/learning/
 !/doc/learning/**
 
 
-
-
+# global #
 !/README.md
 !/.gitignore
 !/LICENSE
 
 !/.vscode/
 !/.vscode/**
+
+## special
+!/.bak/
+!/.bak/**
