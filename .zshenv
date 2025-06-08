@@ -27,3 +27,11 @@ PROGRAM_ENV="$XDG_CONFIG_HOME/lang.env"
 if [ -f "$PROGRAM_ENV" ] ; then
 	source "$PROGRAM_ENV"
 fi
+
+path=(
+	$HOME/.local/bin(N-/)
+	$CARGO_HOME/bin(N-/)
+	$RUSTUP_HOME/toolchains/*/bin(N-/)
+	$path
+)
+export PATH
