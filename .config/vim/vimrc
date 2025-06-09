@@ -1,0 +1,41 @@
+" 検索にマッチした行以外を折りたたむ(フォールドする)機能
+set nofoldenable
+" タイトルを表示
+set fileencodings=utf-8,cp932,euc-jp,sjis
+set encoding=utf-8
+set number
+set ruler
+set autoindent
+syntax on
+set hlsearch
+set laststatus=2
+
+colorscheme slate
+
+
+" ref: https://onair.jp/archives/4012.html
+if has("autocmd")
+  augroup redhat
+    " In text files, always limit the width of text to 78 characters
+    autocmd BufRead *.txt set tw=78
+    " When editing a file, always jump to the last cursor position
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \   exe "normal! g'\"" |
+    \ endif
+  augroup END
+endif
+
+set backupdir=$XDG_STATE_HOME/vim/backup
+set directory=$XDG_STATE_HOME/vim/swap
+set undodir=$XDG_STATE_HOME/vim/undo
+set viewdir=$XDG_STATE_HOME/vim/view
+
+call mkdir(&backupdir, 'p')
+call mkdir(&directory, 'p')
+call mkdir(&undodir, 'p')
+call mkdir(&viewdir, 'p')
+if !has('nvim')
+  set viminfofile=$XDG_STATE_HOME/vim/viminfo
+endif
+call mkdir($XDG_STATE_HOME."/vim", 'p', 0700)
