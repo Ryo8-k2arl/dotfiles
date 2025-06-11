@@ -5,8 +5,8 @@
 FILTER=fzf
 
 # change git-repository's directory
-function FILTER-cd-repo() {
-	local selected_dir=$(ghq list -p | FZF_DEFAULT_OPTS="$FZF_GIT_REPO_SEARCH_OPTS" "$FILTER" --query "$LBUFFER")
+function FILTER-cd-src() {
+	local selected_dir=$(ghq list | FZF_DEFAULT_OPTS="$FZF_GIT_REPO_SEARCH_OPTS" "$FILTER" --query "$LBUFFER")
 	if [ -n "$selected_dir" ]; then
 		BUFFER="cd ${selected_dir}"
 		zle accept-line
