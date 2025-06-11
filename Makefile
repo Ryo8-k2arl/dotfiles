@@ -30,7 +30,8 @@ install:
 	@echo "✔︎ Installation complete!"
 	@echo ""
 	@echo "Next:"
-	@echo "	1. Set username and email in ~/.config/git/user.local"
+	@echo "	1. Add .env and set environment variables."
+	@echo "	2. Add ~/.config/git/user.local and set up user information."
 	@echo ""
 	@echo "  → Please restart your shell to apply changes."
 
