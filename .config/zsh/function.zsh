@@ -8,7 +8,7 @@ FILTER=fzf
 function FILTER-cd-src() {
 	local selected_dir=$(ghq list | FZF_DEFAULT_OPTS="$FZF_GIT_REPO_SEARCH_OPTS" "$FILTER" --query "$LBUFFER")
 	if [ -n "$selected_dir" ]; then
-		BUFFER="cd ${selected_dir}"
+		BUFFER="cd $(ghq root)/${selected_dir}"
 		zle accept-line
 	fi
 	zle clear-screen
