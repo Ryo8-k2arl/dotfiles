@@ -28,6 +28,10 @@ install:
 	@echo "  Linked: $(ZSHENV_TARGET) → $(ZSHENV_SOURCE)"
 	@echo
 	@echo "✔︎ Installation complete!"
+	@echo ""
+	@echo "Next:"
+	@echo "	1. Set username and email in ~/.config/git/user.local"
+	@echo ""
 	@echo "  → Please restart your shell to apply changes."
 
 # ─────────────────────────────────────────────
