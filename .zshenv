@@ -17,6 +17,7 @@ export ZDOTDIR="$HOME/.config/zsh"
 export ZHOMEDIR="$HOME/.config/zsh"
 export ZDATADIR="$XDG_DATA_HOME/zsh"
 export ZCACHEDIR="$XDG_CACHE_HOME/zsh"
+export ZHOOKDIR="$ZHOMEDIR/hooks"
 
 ### rc ###
 export RCDIR="$XDG_CONFIG_HOME/rc"

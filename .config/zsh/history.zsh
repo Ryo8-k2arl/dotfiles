@@ -24,3 +24,9 @@ setopt hist_reduce_blanks			# ヒストリ保存時に余分な空白を除去�
 setopt hist_save_no_dups			# ヒストリファイルに書き出すときに以前のコマンドと同じものを除去する
 setopt hist_verify				# ヒストリコマンドを直接実行しない
 setopt inc_append_history_time			# コマンド終了時に、履歴ファイルに書き込む
+
+
+#
+if [ -f "${ZHOOKDIR}/history.zsh" ]; then
+	source "${ZHOOKDIR}/history.zsh"
+fi
