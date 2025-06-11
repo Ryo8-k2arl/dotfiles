@@ -14,17 +14,14 @@ shell = "zsh"
 
 [plugins]
 
-
-# 構文ハイライト
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-
+# オートサジェスト
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
 
 # 補完
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
 
-
-# オートサジェスト
-[plugins.zsh-autosuggestions]
-github = "zsh-users/zsh-autosuggestions"
+# 構文ハイライト
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
