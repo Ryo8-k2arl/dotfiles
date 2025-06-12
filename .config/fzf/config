@@ -97,12 +97,17 @@ export FZF_SSH_HOST_SEARCH_OPTS="
 	--height=100%
 	--border --padding 1,2
 	--input-label ' Input '
-	--preview-window \"40%,nowrap\"
+	--preview-window \"50%,nowrap\"
 	--preview \"
 		bat -p --color=always ~/.ssh/config |
 		awk '
-			\$1 ~ \\\"Host\\\" && \$2 ~ \\\"{}\\\" { in_block = 1; print; next }
-			\$1 ~ \\\"Host\\\" && \$2 != \\\"{}\\\" { in_block = 0 }
+			function stripANSI(s) { return gensub(/\\\\x1b\\\\[[0-9;]*[mK]/, \\\"\\\", \\\"g\\\", s) }
+			{
+				a = stripANSI(\$1)
+				b = stripANSI(\$2)
+			}
+			a == \\\"Host\\\" && b == \\\"{}\\\" { in_block=1; print; next }
+			a == \\\"Host\\\" && b != \\\"{}\\\" { in_block=0 }
 			in_block { print }
 		'
 	\"

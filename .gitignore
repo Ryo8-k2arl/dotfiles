@@ -8,6 +8,9 @@
 !/.config
 !/.config/**
 
+## git
+/.config/git/conf.d/user.local
+
 ### zsh
 !/.zshenv
 
@@ -21,6 +24,7 @@
 # global #
 !/README.md
 !/.gitignore
+!/Makefile
 !/LICENSE
 
 !/.vscode/
