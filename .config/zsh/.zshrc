@@ -26,6 +26,8 @@ fi
 ## Terminal Prompt
 if builtin command -v starship > /dev/null 2>&1; then
 	eval "$(starship init zsh)"
+else
+	PROMPT='[%n@%m]%~%#'
 fi
 
 
