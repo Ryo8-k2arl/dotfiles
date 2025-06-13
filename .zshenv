@@ -35,6 +35,7 @@ if [ -f "$XDG_CONFIG_HOME/fzf/config" ]; then
 fi
 
 path=(
+	$HOME/bin(N-/)
 	$HOME/.local/bin(N-/)
 	$CARGO_HOME/bin(N-/)
 	$RUSTUP_HOME/toolchains/*/bin(N-/)
