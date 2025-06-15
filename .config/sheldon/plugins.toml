@@ -12,16 +12,25 @@
 
 shell = "zsh"
 
-[plugins]
+[templates]
+defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks?.post | nl }}"
+
+#
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
 
 # オートサジェスト
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
+apply = ["defer"]
 
 # 補完
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
+apply = ["defer"]
 
 # 構文ハイライト
 [plugins.zsh-syntax-highlighting]
 github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
