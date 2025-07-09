@@ -3,7 +3,8 @@
 #=================================================================================================#
 
 ### locale ###
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8 2025-07-09
+export LANG=ja_JP.UTF-8
 export LC_TIME=C.UTF-8
 
 ### XDG ###
