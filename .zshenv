@@ -24,7 +24,7 @@ export ZHOOKDIR="$ZHOMEDIR/hooks"
 export RCDIR="$XDG_CONFIG_HOME/rc"
 
 ### Program Env ###
-PROGRAM_ENV="$XDG_CONFIG_HOME/lang.env"
+export PROGRAM_ENV="$XDG_CONFIG_HOME/lang.env"
 
 if [ -f "$PROGRAM_ENV" ] ; then
 	source "$PROGRAM_ENV"
