@@ -31,7 +31,8 @@ install:
 	@echo ""
 	@echo "Next:"
 	@echo "	1. Add .env and set environment variables."
-	@echo "	2. Add ~/.config/git/user.local and set up user information."
+	@echo "	2. Add ~/.config/git/conf.d/user.local and set up user information."
+	@echo " 3. `touch .local/share/zsh/zsh_history`"
 	@echo ""
 	@echo "  → Please restart your shell to apply changes."
 
