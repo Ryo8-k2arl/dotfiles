@@ -1,6 +1,10 @@
 ## refrence : https://namileriblog.com/terminal/starship_2025/
 ##		https://starship.rs/presets/nerd-font
 
+# settings ######################################
+command_timeout = 1000
+
+
 format = """
 $os\
 $sudo\
