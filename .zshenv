@@ -41,6 +41,7 @@ path=(
 	$HOME/.local/bin(N-/)
 	$CARGO_HOME/bin(N-/)
 	$RUSTUP_HOME/toolchains/*/bin(N-/)
+	$VOLTA_HOME/bin(N-/)
 	$path
 )
 export PATH
