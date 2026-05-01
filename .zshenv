@@ -36,14 +36,15 @@ if [ -f "$XDG_CONFIG_HOME/fzf/config" ]; then
 	source "$XDG_CONFIG_HOME/fzf/config"
 fi
 
+typeset -U path
+
 path=(
 	$HOME/bin(N-/)
 	$HOME/.local/bin(N-/)
 	$CARGO_HOME/bin(N-/)
 	$RUSTUP_HOME/toolchains/*/bin(N-/)
 #	$VOLTA_HOME/bin(N-/)
-  $PROTO_HOME/shims(N-/)
-  $PROTO_HOME/bin(N-/)
+  	$PROTO_HOME/shims(N-/)
+  	$PROTO_HOME/bin(N-/)
 	$path
 )
-export PATH
