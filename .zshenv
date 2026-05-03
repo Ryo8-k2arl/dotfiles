@@ -20,7 +20,6 @@ export ZHOMEDIR="$HOME/.config/zsh"
 export ZDATADIR="$XDG_DATA_HOME/zsh"
 export ZCACHEDIR="$XDG_CACHE_HOME/zsh"
 export ZHOOKDIR="$ZHOMEDIR/hooks"
-
 ### rc ###
 export RCDIR="$XDG_CONFIG_HOME/rc"
 
@@ -43,8 +42,9 @@ path=(
 	$HOME/.local/bin(N-/)
 	$CARGO_HOME/bin(N-/)
 	$RUSTUP_HOME/toolchains/*/bin(N-/)
-#	$VOLTA_HOME/bin(N-/)
-  	$PROTO_HOME/shims(N-/)
-  	$PROTO_HOME/bin(N-/)
+ 	$PROTO_HOME/shims(N-/)
+ 	$PROTO_HOME/bin(N-/)
+  	$NPM_CONFIG_PREFIX/bin(N-/)
+  	$XDG_CACHE_HOME/.bun/bin(N-)
 	$path
 )
