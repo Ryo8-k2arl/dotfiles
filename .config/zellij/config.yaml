@@ -1,0 +1,3 @@
+# dotfiles/.config/zellij/config.yaml: settings file of zellij
+
+stacked_resize: true
