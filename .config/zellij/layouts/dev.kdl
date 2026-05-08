@@ -1,0 +1,40 @@
+// .config/zellij/layouts/test.kdl
+
+layout {
+  // Use the current dir when `zellij --layout test`
+  cwd ""
+
+  pane split_direction="vertical" {
+    pane {
+      pane borderless=true {
+        size "60%"
+        command "ft"
+        args "./"
+      }
+      pane borderless=true {
+        size "40%"
+        command "keifu"
+      }
+    }
+    pane split_direction="horizontal" size="80%" {
+      pane size="65%" {
+        name ""
+        focus true
+        stacked true
+
+        pane {
+          name "Editor"
+        }
+        pane {
+          name "Agent"
+        }
+      }
+      pane size="35%" {
+        name ""
+      }
+    }
+  }
+  pane size=1 borderless=true {
+    plugin location="status-bar"
+  }
+}
