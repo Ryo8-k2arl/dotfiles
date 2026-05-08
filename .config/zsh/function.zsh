@@ -40,8 +40,7 @@ zle -N FILTER-select-ssh
 
 # select TMUX's session
 function FILTER-select-TMUX() {
-	local selected_session=$("$TMUX" ls --no-formatting | FZF_DEFAULT_OPTS="$FZF_HISTORY_OPTS" "$FILTER" --query "$L_BUFFER")
-	CURSOR=$#(cut -d' ' -f1 "$selected_session" )
-	# zle clear-screen
+	local selected_session=$("$TMUX" ls --no-formatting | FZF_DEFAULT_OPTS="$FZF_HISTORY_OPTS" "$FILTER" --query "$LBUFFER")
+	echo "$selected_session" | cut -d' ' -f1
 }
 
