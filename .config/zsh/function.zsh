@@ -28,7 +28,7 @@ zle -N FILTER-select-history
 
 # select host to ssh
 function FILTER-select-ssh() {
-	local selected_host=$(awk '/Host / {hostname=$2; print hostname }' ~/.ssh/config | FZF_DEFAULT_OPTS="$FZF_SSH_HOST_SEARCH_OPTS" fzf --query "$L_BUFFER")
+	local selected_host=$(awk '/Host / {hostname=$2; print hostname }' ~/.ssh/config | FZF_DEFAULT_OPTS="$FZF_SSH_HOST_SEARCH_OPTS" fzf --query "$LBUFFER")
 
 	if [ -n "$selected_host" ]; then
 		BUFFER="ssh ${selected_host}"
