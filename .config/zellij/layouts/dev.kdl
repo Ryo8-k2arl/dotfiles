@@ -15,6 +15,7 @@ layout {
         name "File"
         size "80%"
         close_on_exit true
+        expanded true
         command "ft"
       }
       pane {
