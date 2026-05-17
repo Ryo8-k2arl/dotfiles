@@ -1,9 +1,9 @@
--- -*- encoding: utf-8 -*-
--- .config/nvim/lua/plugins/colorscheme.lua
+-- nvim/lua/plugins/colorscheme.lua
 
 return {
-  { "xiyaowong/transparent.nvim" },                 -- 透過用
-  { "catppuccin/nvim", "neanias/everforest-nvim" }, -- Color Scheme
+  { "xiyaowong/transparent.nvim" },                            -- 透過用
+  { "catppuccin/nvim", name = "catppuccin", priority = 1000 }, -- Color Scheme
+  { "neanias/everforest-nvim", priority = 1000 },
   {
     "LazyVim/LazyVim",
     opts = {
