@@ -1,5 +1,4 @@
--- -*- encoding: utf-8 -*-
--- .config/nvim/lua/plugins/mason.lua
+-- nvim/lua/plugins/lsp/mason.lua
 
 return {
   {

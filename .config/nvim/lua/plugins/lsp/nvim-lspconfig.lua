@@ -1,4 +1,4 @@
--- -*- encoding: utf-8 -*-
+-- nvim/lua/plugins/lsp/nvim-lspconfig.lua
 
 return {
   'neovim/nvim-lspconfig',
@@ -6,6 +6,8 @@ return {
   config = function()
     vim.lsp.enable({
       "rust_analyzer",
+      "ty",
+      "ruff",
     })
   end,
 }
