@@ -3,8 +3,6 @@
 return {
   cmd = { "ty", "server" },
   init_options = {
-    settings = {
     logLevel = "warn",
-    },
   },
 }
