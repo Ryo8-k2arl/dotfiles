@@ -42,9 +42,6 @@ path=(
 	$HOME/.local/bin(N-/)
 	$CARGO_HOME/bin(N-/)
 	$RUSTUP_HOME/toolchains/*/bin(N-/)
- 	$PROTO_HOME/shims(N-/)
- 	$PROTO_HOME/bin(N-/)
-  	$NPM_CONFIG_PREFIX/bin(N-/)
-  	$XDG_CACHE_HOME/.bun/bin(N-)
+  $NPM_CONFIG_PREFIX/bin(N-/)
 	$path
 )
