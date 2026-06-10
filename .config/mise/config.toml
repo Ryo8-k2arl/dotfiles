@@ -1,0 +1,6 @@
+[settings]
+npm.bun = true
+minimum_release_age = "14d"
+
+[tools]
+bun = "latest"
