@@ -5,6 +5,7 @@
 -- Add any additional options here
 
 vim.opt.linebreak = true
+vim.opt.wrap = true
 vim.opt.clipboard = "unnamedplus"
 
 vim.g.lazyvim_python_lsp = "ty"
