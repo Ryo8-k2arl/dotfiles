@@ -44,3 +44,10 @@ function FILTER-select-TMUX() {
 	echo "$selected_session" | cut -d' ' -f1
 }
 
+# mycli with XDG Support
+function mycli() {
+  command mycli \
+    --myclirc "$XDG_CONFIG_HOME/mycli/myclirc" \
+    --defaults-file "$XDG_CONFIG_HOME/mysql/my.cnf" \
+    "$@"
+}
