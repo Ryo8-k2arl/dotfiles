@@ -1,31 +1,83 @@
 ### All ignore ###
 /*
 /.**
+/.config/**
+/.vscode/**
 
-### Not ignore ###
+### Directory traversal ###
+!/.config/
+!/.config/**/
+!/.vscode/
+!/.vscode/**/
+
+### Whitelist ###
 
 ## config
-!/.config
-!/.config/**
-
-## git
-/.config/git/conf.d/user.local
+!/.config/create-next-app-nodejs/config.json
+!/.config/fontconfig/fonts.conf
+!/.config/fzf/config
+!/.config/git/conf.d/alias.conf
+!/.config/git/conf.d/core.conf
+!/.config/git/conf.d/delta.conf
+!/.config/git/conf.d/ghq.conf
+!/.config/git/conf.d/user.conf
+!/.config/git/config
+!/.config/git/ignore
+!/.config/git/template/commit-template.txt
+!/.config/hypr/hyprland.conf
+!/.config/hypr/hyprlock.conf
+!/.config/lang.env
+!/.config/lazygit/config.yml
+!/.config/mise/config.toml
+!/.config/npm/npmrc
+!/.config/nvim/after/lsp/ruff.lua
+!/.config/nvim/after/lsp/ty.lua
+!/.config/nvim/init.lua
+!/.config/nvim/lazy-lock.json
+!/.config/nvim/lazyvim.json
+!/.config/nvim/lua/config/autocmds.lua
+!/.config/nvim/lua/config/keymaps.lua
+!/.config/nvim/lua/config/lazy.lua
+!/.config/nvim/lua/config/options.lua
+!/.config/nvim/lua/plugins/completion/blink.lua
+!/.config/nvim/lua/plugins/core.lua
+!/.config/nvim/lua/plugins/lang/latex.lua
+!/.config/nvim/lua/plugins/lang/lua.lua
+!/.config/nvim/lua/plugins/lang/markdown.lua
+!/.config/nvim/lua/plugins/lang/python.lua
+!/.config/nvim/lua/plugins/lang/rust.lua
+!/.config/nvim/lua/plugins/lsp/mason.lua
+!/.config/nvim/lua/plugins/lsp/nvim-lspconfig.lua
+!/.config/nvim/lua/plugins/snippets/luasnip.lua
+!/.config/nvim/lua/plugins/tools/git.lua
+!/.config/nvim/lua/plugins/ui/colorscheme.lua
+!/.config/nvim/lua/snippets/python.lua
+!/.config/nvim/lua/snippets/rust.lua
+!/.config/nvim/lua/snippets/tex.lua
+!/.config/python/pythonrc
+!/.config/rc/alias.rc
+!/.config/sheldon/plugins.toml
+!/.config/starship.toml
+!/.config/vim/vimrc
+!/.config/zellij/config.kdl
+!/.config/zellij/config.yaml
+!/.config/zellij/layouts/dev.kdl
+!/.config/zsh/.zshrc
+!/.config/zsh/base.zsh
+!/.config/zsh/bindkey.zsh
+!/.config/zsh/function.zsh
+!/.config/zsh/history.zsh
+!/.config/zsh/hooks/history.zsh
+!/.config/zsh/hooks/proto.zsh
 
 ### zsh
 !/.zshenv
 
-## document
-!/doc/
-/doc/*
-!/doc/learning/
-!/doc/learning/**
-
-
-# global #
+## global
 !/README.md
 !/.gitignore
 !/Makefile
 !/LICENSE
 
-!/.vscode/
-!/.vscode/**
+## vscode
+!/.vscode/settings.json
