@@ -3,26 +3,8 @@
 return {
 	{
 		"mason-org/mason.nvim",
-		lazy = true,
-		build = ":MasonUpdate",
-		config = function()
-			require("mason").setup()
-		end,
-		opts = {},
-	},
-
-	{
-		"WhoIsSethDaniel/mason-tool-installer.nvim",
-		dependecies = { "mason-org/mason.nvim" },
-		cmd = {
-			"MasonToolsInstall",
-			"MasonToolsInstallSync",
-			"MasonToolsUpdate",
-			"MasonToolsUpdateSync",
-		},
 		opts = {
 			ensure_installed = {
-				-- Lua
 				-- Rust
 				"rust-analyzer",
 
@@ -33,12 +15,10 @@ return {
 				-- LaTeX
 				"texlab",
 				"latexindent",
-				-- Markdown
-				-- Shell
-				--
+
+				-- Web / Markdown
+				"prettierd",
 			},
-			auto_update = false,
-			run_on_start = true,
 		},
 	},
 }
