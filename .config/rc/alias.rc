@@ -35,5 +35,7 @@ else
 	alias vim='vim'
 fi
 
+alias view='vim -R'
+
 # wget;	Configure wget's history file to follow the XDG Base Directory specification.
 alias wget='wget --hsts-file="$XDG_DATA_HOME/wget-hsts"'
