@@ -26,7 +26,7 @@ layout {
       }
     }
     pane split_direction="horizontal" size="80%" {
-      pane size="65%" {
+      pane size="80%" {
         focus true
         stacked true
 
@@ -37,9 +37,9 @@ layout {
         pane {
           name "Agent"
         }
-      }
-      pane size="35%" {
+        pane {
         name "Terminal"
+        }
       }
     }
   }
