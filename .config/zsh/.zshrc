@@ -15,29 +15,41 @@ source "$ZHOMEDIR/history.zsh"
 
 
 #-------------------------------------------------------------------------------------------------#
-##	Tool											 ##
+##	Plugins											 ##
 #-------------------------------------------------------------------------------------------------#
 
-## Plugin Manager
 if builtin command -v sheldon > /dev/null 2>&1; then
 	eval "$(sheldon source)"
 fi
 
-## Terminal Prompt
+
+#-------------------------------------------------------------------------------------------------#
+##	Completion										 ##
+#-------------------------------------------------------------------------------------------------#
+
+# Sheldon registers zsh-completions before this. Defer the more expensive
+# completion initialization until ZLE is idle.
+if (( $+functions[zsh-defer] )); then
+	zsh-defer -2 source "$ZHOMEDIR/completion.zsh"
+else
+	source "$ZHOMEDIR/completion.zsh"
+fi
+
+
+#-------------------------------------------------------------------------------------------------#
+##	Interactive Tools									 ##
+#-------------------------------------------------------------------------------------------------#
+
+## Prompt
 if builtin command -v starship > /dev/null 2>&1; then
 	eval "$(starship init zsh)"
 else
 	PROMPT='[%n@%m]%~%# '
 fi
 
-## Runtime Version Manager
+## Runtime version manager
 if builtin command -v mise > /dev/null 2>&1; then
-  eval "$(mise activate zsh)"
-fi
-
-## Task Runner
-if builtin command -v go-task > /dev/null 2>&1; then
-	eval "$(go-task --completion zsh)"
+	eval "$(mise activate zsh)"
 fi
 
 #-------------------------------------------------------------------------------------------------#
