@@ -67,6 +67,7 @@
 !/.config/zsh/.zshrc
 !/.config/zsh/base.zsh
 !/.config/zsh/bindkey.zsh
+!/.config/zsh/completion.zsh
 !/.config/zsh/function.zsh
 !/.config/zsh/history.zsh
 !/.config/zsh/hooks/history.zsh
