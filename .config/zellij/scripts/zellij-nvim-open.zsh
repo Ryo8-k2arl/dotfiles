@@ -1,20 +1,20 @@
 #!/usr/bin/env zsh
 
-set -u
+set -eu
 
-readonly SOCKET_DIR="${XDG_RUNTIME_DIR:-/tmp}"
-readonly SESSION_NAME="${ZELLIJ_SESSION_NAME:-default}"
-readonly SOCKET_PATH="${SOCKET_DIR}/nvim-${SESSION_NAME}.sock"
+
+readonly SCRIPT_DIR="${0:A:h}"
+readonly SOCKET_PATH="$("${SCRIPT_DIR}/zellij-nvim-socket.zsh")"
 
 
 if (( $# == 0 )); then
-  echo "Usage: nvim-open.zsh <file> [...]" >&2
+  print -u2 "Usage: zellij-nvim-open.zsh <file> [...]"
   exit 1
 fi
 
 
 if [[ ! -S "${SOCKET_PATH}" ]]; then
-  echo "Neovim server is not running: ${SOCKET_PATH}" >&2
+  print -u2 "Neovim server is not running: ${SOCKET_PATH}"
   exit 1
 fi
 

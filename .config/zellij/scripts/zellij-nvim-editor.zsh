@@ -2,9 +2,8 @@
 
 set -u
 
-readonly SOCKET_DIR="${XDG_RUNTIME_DIR:-/tmp}"
-readonly SESSION_NAME="${ZELLIJ_SESSION_NAME:-default}"
-readonly SOCKET_PATH="${SOCKET_DIR}/nvim-${SESSION_NAME}.sock"
+readonly SCRIPT_DIR="${0:A:h}"
+readonly SOCKET_PATH="$("${SCRIPT_DIR}/zellij-nvim-socket.zsh")"
 
 SERVER_PID=""
 
