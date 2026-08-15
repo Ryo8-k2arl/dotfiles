@@ -27,6 +27,7 @@
 !/.config/hypr/hyprland.conf
 !/.config/hypr/hyprlock.conf
 !/.config/lang.env
+!/.config/tool.env
 !/.config/lazygit/config.yml
 !/.config/mise/config.toml
 !/.config/npm/npmrc
