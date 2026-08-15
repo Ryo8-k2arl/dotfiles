@@ -25,9 +25,14 @@ export RCDIR="$XDG_CONFIG_HOME/rc"
 
 ### Program Env ###
 export PROGRAM_ENV="$XDG_CONFIG_HOME/lang.env"
+export TOOLS_ENV="$XDG_CONFIG_HOME/tool.env"
 
 if [ -f "$PROGRAM_ENV" ] ; then
 	source "$PROGRAM_ENV"
+fi
+
+if [ -f "$TOOLS_ENV" ] ; then
+	source "$TOOLS_ENV"
 fi
 
 ### function variables
