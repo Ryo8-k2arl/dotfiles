@@ -62,6 +62,7 @@
 !/.config/zellij/config.kdl
 !/.config/zellij/config.yaml
 !/.config/zellij/layouts/dev.kdl
+!/.config/zellij/scripts/**
 !/.config/zsh/.zshrc
 !/.config/zsh/base.zsh
 !/.config/zsh/bindkey.zsh
