@@ -20,14 +20,13 @@ defer = "{{ hooks?.pre | nl }}{% for file in files %}zsh-defer source \"{{ file 
 github = "romkatv/zsh-defer"
 
 
-# オートサジェスト
-[plugins.zsh-autosuggestions]
-github = "zsh-users/zsh-autosuggestions"
-apply = ["defer"]
-
 # 補完
 [plugins.zsh-completions]
 github = "zsh-users/zsh-completions"
+
+# オートサジェスト
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
 apply = ["defer"]
 
 # 構文ハイライト
