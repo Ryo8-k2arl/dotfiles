@@ -35,7 +35,7 @@ layout {
           focus true
 
           command "sh"
-          args "-c" "exec \"${XDG_CONFIG_HOME:-$HOME/.config}/zellij/scripts/nvim-editor.zsh\""
+          args "-c" "exec \"${XDG_CONFIG_HOME:-$HOME/.config}/zellij/scripts/zellij-nvim-editor.zsh\""
         }
 
         pane name="Agent"
