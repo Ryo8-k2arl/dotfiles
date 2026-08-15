@@ -35,6 +35,11 @@ if builtin command -v mise > /dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
+## Task Runner
+if builtin command -v go-task > /dev/null 2>&1; then
+	eval "$(go-task --completion zsh)"
+fi
+
 #-------------------------------------------------------------------------------------------------#
 ##	Function										 ##
 #-------------------------------------------------------------------------------------------------#
@@ -54,4 +59,3 @@ source "$RCDIR/alias.rc"
 #-------------------------------------------------------------------------------------------------#
 
 source "$ZHOMEDIR/bindkey.zsh"
-
