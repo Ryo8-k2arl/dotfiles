@@ -31,15 +31,16 @@ layout {
         stacked true
 
         pane {
-          focus true
           name "Editor"
+          focus true
+
+          command "sh"
+          args "-c" "exec \"${XDG_CONFIG_HOME:-$HOME/.config}/zellij/scripts/nvim-editor.zsh\""
         }
-        pane {
-          name "Agent"
-        }
-        pane {
-        name "Terminal"
-        }
+
+        pane name="Agent"
+
+        pane name="Terminal"
       }
     }
   }
