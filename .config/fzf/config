@@ -125,3 +125,36 @@ export FZF_SSH_HOST_SEARCH_OPTS="
 	--color 'header-border:#6699cc,header-label:#99ccff'
 	--color 'fg+:#5edecf'
 "
+
+### Zellij workspace's option ###
+export FZF_ZELLIJ_WORKSPACE_OPTS="
+	--style=full
+	--layout=reverse
+	--height=100%
+	--border --padding 1,2
+	--border-label ''
+	--input-label ' Input '
+
+	--preview-window '50%,nowrap'
+
+	--bind 'result:transform-list-label:
+		if [ -z \$FZF_QUERY ]; then
+			echo \" \$FZF_MATCH_COUNT workspaces \"
+		else
+			echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
+		fi
+	'
+
+	--bind 'focus:transform-preview-label:
+		if [ -n {2} ]; then
+			printf \" %s \" {2}
+		fi
+	'
+
+	--color 'border:#aaaaaa,label:#cccccc'
+	--color 'preview-border:#9999cc,preview-label:#ccccff'
+	--color 'list-border:#669966,list-label:#99cc99'
+	--color 'input-border:#996666,input-label:#ffcccc'
+	--color 'header-border:#6699cc,header-label:#99ccff'
+	--color 'fg+:#5edecf'
+"

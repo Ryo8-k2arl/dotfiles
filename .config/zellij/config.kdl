@@ -1,3 +1,6 @@
+post_command_discovery_hook "$HOME/.config/zellij/scripts/zellij-resurrect-command.sh"
+
+
 keybinds clear-defaults=true {
     locked {
         bind "Ctrl g" { SwitchToMode "normal"; }
@@ -45,7 +48,27 @@ keybinds clear-defaults=true {
         bind "j" { GoToNextTab; }
         bind "k" { GoToPreviousTab; }
         bind "l" { GoToNextTab; }
-        bind "n" { NewTab; SwitchToMode "normal"; }
+
+        // Select a Git worktree and open it with the development layout.
+        bind "n" {
+          Run "sh" "-c" "exec \"${XDG_CONFIG_HOME:-$HOME/.config}/zellij/scripts/zellij-tab.sh\"" {
+            floating true
+            close_on_exit true
+
+            x "5%"
+            y "5%"
+            width "90%"
+            height "90%"
+          }
+          SwitchToMode "normal"
+        }
+
+        // Original Zellij plain tab.
+        bind "p" {
+          NewTab
+          SwitchToMode "normal"
+        }
+
         bind "r" { SwitchToMode "renametab"; TabNameInput 0; }
         bind "s" { ToggleActiveSyncTab; SwitchToMode "normal"; }
         bind "Ctrl t" { SwitchToMode "normal"; }
