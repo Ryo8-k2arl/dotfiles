@@ -14,6 +14,7 @@ return {
 
 				-- LaTeX
 				"texlab",
+				"latexindent",
 
 				-- Web / Markdown
 				"prettierd",

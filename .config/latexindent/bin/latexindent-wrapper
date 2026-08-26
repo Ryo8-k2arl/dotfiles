@@ -2,11 +2,10 @@
 
 set -eu
 
-version=4.0.2
 data_home=${XDG_DATA_HOME:-"$HOME/.local/share"}
 state_home=${XDG_STATE_HOME:-"$HOME/.local/state"}
 cache_home=${XDG_CACHE_HOME:-"$HOME/.cache"}
-latexindent_bin=${LATEXINDENT_BIN:-"$data_home/latexindent/$version/latexindent"}
+latexindent_bin=${LATEXINDENT_BIN:-"$data_home/nvim/mason/bin/latexindent"}
 
 if [ ! -x "$latexindent_bin" ]; then
   printf 'latexindent wrapper: executable not found: %s\n' "$latexindent_bin" >&2
