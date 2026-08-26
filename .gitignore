@@ -29,9 +29,13 @@
 !/.config/lang.env
 !/.config/tool.env
 !/.config/lazygit/config.yml
+!/.config/latexindent/bin/latexindent-wrapper
+!/.config/latexindent/indentconfig.yaml
+!/.config/latexindent/settings.yaml
 !/.config/latexmk/latexmkrc
 !/.config/mise/config.toml
 !/.config/npm/npmrc
+!/.config/nvim/after/lsp/texlab.lua
 !/.config/nvim/after/lsp/ruff.lua
 !/.config/nvim/after/lsp/ty.lua
 !/.config/nvim/init.lua
@@ -63,6 +67,7 @@
 !/.config/vim/vimrc
 !/.config/zellij/config.kdl
 !/.config/zellij/config.yaml
+!/.config/zellij/README.md
 !/.config/zellij/layouts/dev.kdl
 !/.config/zellij/scripts/**
 !/.config/zsh/.zshrc
