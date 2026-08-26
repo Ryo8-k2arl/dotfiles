@@ -1,0 +1,149 @@
+#!/bin/sh
+
+set -eu
+
+version=4.0.2
+data_home=${XDG_DATA_HOME:-"$HOME/.local/share"}
+state_home=${XDG_STATE_HOME:-"$HOME/.local/state"}
+cache_home=${XDG_CACHE_HOME:-"$HOME/.cache"}
+latexindent_bin=${LATEXINDENT_BIN:-"$data_home/latexindent/$version/latexindent"}
+
+if [ ! -x "$latexindent_bin" ]; then
+  printf 'latexindent wrapper: executable not found: %s\n' "$latexindent_bin" >&2
+  exit 127
+fi
+
+for arg in "$@"; do
+  case $arg in
+    -h | --help | -v | --version)
+      exec "$latexindent_bin" "$@"
+      ;;
+  esac
+done
+
+overwrite=0
+has_cruft=0
+log_file=indent.log
+skip_next=0
+next_value=
+source_count=0
+source_path=
+
+for arg in "$@"; do
+  if [ "$skip_next" -eq 1 ]; then
+    if [ "$next_value" = logfile ]; then
+      log_file=$arg
+    fi
+    skip_next=0
+    next_value=
+    continue
+  fi
+
+  case $arg in
+    -w | --overwrite | -wd | --overwriteIfDifferent)
+      overwrite=1
+      ;;
+    -c | --cruft)
+      has_cruft=1
+      skip_next=1
+      next_value=cruft
+      continue
+      ;;
+    -c=* | --cruft=*)
+      has_cruft=1
+      continue
+      ;;
+    -g | --logfile)
+      skip_next=1
+      next_value=logfile
+      continue
+      ;;
+    -g=* | --logfile=*)
+      log_file=${arg#*=}
+      continue
+      ;;
+    -o | --outputfile | -l | --local | -y | --yaml | -n | --lines)
+      skip_next=1
+      next_value=option
+      continue
+      ;;
+    -* )
+      continue
+      ;;
+    *)
+      source_count=$((source_count + 1))
+      source_path=$arg
+      ;;
+  esac
+done
+
+if [ "$overwrite" -eq 1 ] && [ "$source_count" -gt 1 ]; then
+  printf '%s\n' 'latexindent wrapper: -w/-wd supports one input file at a time.' >&2
+  exit 64
+fi
+
+if [ "$source_count" -eq 1 ] && [ "$source_path" != '-' ]; then
+  if [ ! -e "$source_path" ]; then
+    for extension in .tex .sty .cls .bib; do
+      if [ -e "$source_path$extension" ]; then
+        source_path=$source_path$extension
+        break
+      fi
+    done
+  fi
+  identity=$(realpath -m -- "$source_path")
+else
+  identity=$(realpath -m -- "$PWD/STDIN")
+fi
+
+encoded_identity=$(printf '%s' "$identity" | sed -e 's/%/%%/g' -e 's|/|%|g')
+state_root=$state_home/latexindent
+
+umask 077
+mkdir -p "$state_root" "$cache_home/latexindent"
+export PAR_GLOBAL_TEMP=$cache_home/latexindent
+
+set -- "$@"
+
+if [ "$has_cruft" -eq 1 ]; then
+  exec "$latexindent_bin" "$@"
+fi
+
+cruft_dir=$(mktemp -d "$cache_home/latexindent/cruft.XXXXXX")
+cleanup() {
+  rm -rf -- "$cruft_dir"
+}
+trap cleanup EXIT HUP INT TERM
+
+set +e
+"$latexindent_bin" "-c=$cruft_dir/" "$@"
+status=$?
+set -e
+
+if [ -f "$cruft_dir/$log_file" ]; then
+  mv -f -- "$cruft_dir/$log_file" "$state_root/$encoded_identity.log"
+fi
+
+backup_file=
+for artifact in "$cruft_dir"/*; do
+  if [ -f "$artifact" ] && [ "$artifact" != "$cruft_dir/$log_file" ]; then
+    backup_file=$artifact
+    break
+  fi
+done
+
+if [ -n "$backup_file" ]; then
+  backup_index=2
+  while [ "$backup_index" -gt 0 ]; do
+    previous_index=$((backup_index - 1))
+    if [ -f "$state_root/$encoded_identity.bak$previous_index" ]; then
+      mv -f -- \
+        "$state_root/$encoded_identity.bak$previous_index" \
+        "$state_root/$encoded_identity.bak$backup_index"
+    fi
+    backup_index=$previous_index
+  done
+  mv -f -- "$backup_file" "$state_root/$encoded_identity.bak0"
+fi
+
+exit "$status"
