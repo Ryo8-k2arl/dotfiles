@@ -1,0 +1,43 @@
+# User-wide latexmk configuration.
+
+# Keep generated files out of the source directory. A project-local rc file
+# can override this when a project uses a different layout.
+$out_dir = 'doc';
+
+# Put command-line options after the defaults so callers can override them.
+my $tex_options =
+    '-synctex=1 '
+  . '-interaction=nonstopmode '
+  . '-file-line-error '
+  . '%O %S';
+
+set_tex_cmds($tex_options);
+
+# LuaLaTeX is the default. Retain compatibility with existing documents via
+# LATEX_ENGINE=pdflatex|platex|uplatex|lualatex|xelatex.
+my $engine = defined $ENV{'LATEX_ENGINE'}
+  ? $ENV{'LATEX_ENGINE'}
+  : 'lualatex';
+
+if ($engine eq 'pdflatex') {
+  $pdf_mode = 1;
+}
+elsif ($engine eq 'platex') {
+  $pdf_mode = 3;
+  $latex = "platex -kanji=utf8 $tex_options";
+  $dvipdf = 'dvipdfmx %O -o %D %S';
+}
+elsif ($engine eq 'uplatex') {
+  $pdf_mode = 3;
+  $latex = "uplatex -kanji=utf8 $tex_options";
+  $dvipdf = 'dvipdfmx %O -o %D %S';
+}
+elsif ($engine eq 'lualatex') {
+  $pdf_mode = 4;
+}
+elsif ($engine eq 'xelatex') {
+  $pdf_mode = 5;
+}
+else {
+  die "Unsupported LATEX_ENGINE: $engine\n";
+}

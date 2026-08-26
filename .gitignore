@@ -29,6 +29,7 @@
 !/.config/lang.env
 !/.config/tool.env
 !/.config/lazygit/config.yml
+!/.config/latexmk/latexmkrc
 !/.config/mise/config.toml
 !/.config/npm/npmrc
 !/.config/nvim/after/lsp/ruff.lua
