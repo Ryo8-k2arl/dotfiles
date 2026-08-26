@@ -27,16 +27,15 @@ return {
 			preset = "luasnip",
 		},
 
-		sources = {
-			default = {
-				"lsp",
-				"path",
-				"snippets",
-				"buffer",
-			},
-		},
-
 		completion = {
+			trigger = {
+				-- Rust keywords such as `pub`, `fn`, and `struct` should open the menu while typing.
+				show_on_keyword = true,
+				show_on_trigger_character = true,
+			},
+			menu = {
+				auto_show = true,
+			},
 			list = {
 				selection = {
 					-- 自動で最初の候補を選ばない
@@ -50,9 +49,5 @@ return {
 		fuzzy = {
 			implementation = "prefer_rust_with_warning",
 		},
-	},
-
-	opt_extend = {
-		"sources.default",
 	},
 }
