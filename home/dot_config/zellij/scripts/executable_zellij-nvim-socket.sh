@@ -5,18 +5,51 @@ set -eu
 
 get_current_tab_id()
 {
-	tab_id=$(
-		zellij action current-tab-info |
-			awk '$1 == "id:" { print $2; exit }'
-	)
+	pane_id=${ZELLIJ_PANE_ID:-}
 
-	if [ -z "$tab_id" ]; then
+	if [ -z "$pane_id" ]; then
 		printf '%s\n' \
-			'Failed to get the current Zellij tab ID.' >&2
+			'Failed to get the current Zellij pane ID.' >&2
 		return 1
 	fi
 
-	printf '%s\n' "$tab_id"
+	case "$pane_id" in
+	terminal_* | plugin_*) ;;
+	*) pane_id="terminal_$pane_id" ;;
+	esac
+	bare_pane_id=${pane_id#*_}
+
+	attempt=0
+	while [ "$attempt" -lt 50 ]; do
+		tab_id=$(
+			zellij --session "$ZELLIJ_SESSION_NAME" \
+				action list-panes --tab 2>/dev/null |
+				awk \
+					-v pane_id="$pane_id" \
+					-v bare_pane_id="$bare_pane_id" '
+					{
+						for (field = 1; field <= NF; field++) {
+							if ($field == pane_id || $field == bare_pane_id) {
+								print $1
+								exit
+							}
+						}
+					}
+				'
+		)
+
+		if [ -n "$tab_id" ]; then
+			printf '%s\n' "$tab_id"
+			return 0
+		fi
+
+		attempt=$((attempt + 1))
+		sleep 0.1
+	done
+
+	printf '%s\n' \
+		'Failed to get the Zellij tab ID for the current pane.' >&2
+	return 1
 }
 
 
