@@ -18,7 +18,7 @@ source "$ZHOMEDIR/history.zsh"
 ##	Plugins											 ##
 #-------------------------------------------------------------------------------------------------#
 
-## Activate portable tools before loading tools managed by mise.
+## Activate the small set of development runtimes managed by mise.
 if builtin command -v mise > /dev/null 2>&1; then
 	eval "$(mise activate zsh)"
 fi

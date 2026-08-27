@@ -5,7 +5,7 @@ Personal development environment managed by [chezmoi](https://www.chezmoi.io/), 
 ## Highlights
 
 - Chezmoi templates for host-specific Git, Hyprland, latexindent, and Zellij settings
-- Portable CLI versions managed by mise
+- Node.js and Bun versions managed by mise
 - LazyVim configuration with Rust, Python, LaTeX, testing, and debugging support
 - Zellij development workspace with Git worktree selection and one Neovim server per tab
 - Source state isolated under `home/`; repository documentation is never deployed into `$HOME`
@@ -44,9 +44,9 @@ Install these with the current distribution's package manager:
 - `git`
 - `chezmoi >= 2.70`
 - `zsh`
-- `mise` (recommended; portable tools are skipped when it is absent)
+- `mise` (recommended; Node.js and Bun installation is skipped when it is absent)
 
-TeX Live, Hyprland, fonts, and other system-integrated packages remain distribution-managed. The global mise manifest installs pinned user-space tools such as Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship, and Sheldon.
+Mise is intentionally limited to Node.js and Bun. Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship, Sheldon, TeX Live, Hyprland, fonts, and other system-integrated tools remain distribution-managed.
 
 ## Install on a new host
 
@@ -59,7 +59,6 @@ chezmoi init --apply --ssh Ryo8-k2arl
 During initialization, chezmoi asks for:
 
 - host type: `desktop`, `laptop`, or `server`
-- Git name and email
 - whether Hyprland configuration should be installed
 - commands used by the Zellij file and Git panes
 
@@ -113,6 +112,8 @@ chezmoi update
 
 Machine-local values live in `~/.config/chezmoi/chezmoi.toml`, not in this repository. Run `chezmoi init --prompt` to update answers from `.chezmoi.toml.tmpl`.
 
+Git identity is kept in the untracked, host-local file `~/.config/git/conf.d/user.local`. Chezmoi ensures that the file exists with private permissions but does not manage its contents.
+
 ## Validation
 
 ```sh
@@ -136,7 +137,7 @@ The check renders the complete target state into a temporary home and validates:
 
 ## Local and private data
 
-Git identity is rendered from machine-local chezmoi data into `~/.config/git/conf.d/user.local` with private permissions. Do not add credentials, histories, caches, or application state to `home/` unless they are intentionally templated or encrypted.
+Git identity is not stored in this repository. The included `~/.config/git/conf.d/user.local` remains host-local; chezmoi only creates it when missing and enforces private permissions. Do not add credentials, histories, caches, or application state to `home/` unless they are intentionally templated or encrypted.
 
 Before publishing changes, review both views:
 
