@@ -1,0 +1,13 @@
+# Per-machine Hyprland values. Override these keys in chezmoi.toml [data].
+monitor = {{ .hyprlandMonitor }}
+{{- if .hyprlandPointerName }}
+
+device {
+    name = {{ .hyprlandPointerName }}
+    sensitivity = -0.5
+}
+{{- end }}
+{{- if eq .hostType "laptop" }}
+
+bindl = , switch:off:Lid Switch, exec, hyprlock
+{{- end }}

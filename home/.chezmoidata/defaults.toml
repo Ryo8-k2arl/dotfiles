@@ -1,0 +1,3 @@
+# Static defaults; values in ~/.config/chezmoi/chezmoi.toml take precedence.
+hyprlandMonitor = ",preferred,auto,auto"
+hyprlandPointerName = "epic-mouse-v1"

@@ -23,17 +23,15 @@ export ZHOOKDIR="$ZHOMEDIR/hooks"
 ### rc ###
 export RCDIR="$XDG_CONFIG_HOME/rc"
 
-### Program Env ###
-export PROGRAM_ENV="$XDG_CONFIG_HOME/lang.env"
-export TOOLS_ENV="$XDG_CONFIG_HOME/tool.env"
+### Environment layers ###
+export ENV_DIR="$XDG_CONFIG_HOME/env"
 
-if [ -f "$PROGRAM_ENV" ] ; then
-	source "$PROGRAM_ENV"
-fi
-
-if [ -f "$TOOLS_ENV" ] ; then
-	source "$TOOLS_ENV"
-fi
+for env_file in base.env lang.env tool.env desktop.env local.env; do
+	if [ -f "$ENV_DIR/$env_file" ]; then
+		source "$ENV_DIR/$env_file"
+	fi
+done
+unset env_file
 
 ### function variables
 if [ -f "$XDG_CONFIG_HOME/fzf/config" ]; then
