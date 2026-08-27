@@ -1,0 +1,3 @@
+# Paths must be absolute; latexindent does not expand XDG variables here.
+paths:
+  - {{ joinPath .chezmoi.homeDir ".config/latexindent/settings.yaml" | quote }}

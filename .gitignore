@@ -1,92 +1,19 @@
-### All ignore ###
-/*
-/.**
-/.config/**
-/.vscode/**
+# Machine-local identity and secrets
+/.config/git/conf.d/user.local
+/.config/chezmoi/
+/home/dot_config/git/conf.d/user.local
+.env
+.env.*
+!.env.example
+*.secret
 
-### Directory traversal ###
-!/.config/
-!/.config/**/
-!/.vscode/
-!/.vscode/**/
+# Local diagnostics and scratch files
+*.log
+/git.diff
+/ref/
 
-### Whitelist ###
-
-## config
-!/.config/create-next-app-nodejs/config.json
-!/.config/fontconfig/fonts.conf
-!/.config/fzf/config
-!/.config/git/conf.d/alias.conf
-!/.config/git/conf.d/core.conf
-!/.config/git/conf.d/delta.conf
-!/.config/git/conf.d/ghq.conf
-!/.config/git/conf.d/user.conf
-!/.config/git/config
-!/.config/git/ignore
-!/.config/git/template/commit-template.txt
-!/.config/hypr/hyprland.conf
-!/.config/hypr/hyprlock.conf
-!/.config/lang.env
-!/.config/tool.env
-!/.config/lazygit/config.yml
-!/.config/latexindent/bin/latexindent-wrapper
-!/.config/latexindent/indentconfig.yaml
-!/.config/latexindent/settings.yaml
-!/.config/latexmk/latexmkrc
-!/.config/mise/config.toml
-!/.config/npm/npmrc
-!/.config/nvim/after/lsp/texlab.lua
-!/.config/nvim/after/lsp/ruff.lua
-!/.config/nvim/after/lsp/ty.lua
-!/.config/nvim/init.lua
-!/.config/nvim/lazy-lock.json
-!/.config/nvim/lazyvim.json
-!/.config/nvim/lua/config/autocmds.lua
-!/.config/nvim/lua/config/keymaps.lua
-!/.config/nvim/lua/config/lazy.lua
-!/.config/nvim/lua/config/options.lua
-!/.config/nvim/lua/plugins/completion/blink.lua
-!/.config/nvim/lua/plugins/core.lua
-!/.config/nvim/lua/plugins/lang/latex.lua
-!/.config/nvim/lua/plugins/lang/lua.lua
-!/.config/nvim/lua/plugins/lang/markdown.lua
-!/.config/nvim/lua/plugins/lang/python.lua
-!/.config/nvim/lua/plugins/lang/rust.lua
-!/.config/nvim/lua/plugins/lsp/mason.lua
-!/.config/nvim/lua/plugins/lsp/nvim-lspconfig.lua
-!/.config/nvim/lua/plugins/snippets/luasnip.lua
-!/.config/nvim/lua/plugins/tools/git.lua
-!/.config/nvim/lua/plugins/ui/colorscheme.lua
-!/.config/nvim/lua/snippets/python.lua
-!/.config/nvim/lua/snippets/rust.lua
-!/.config/nvim/lua/snippets/tex.lua
-!/.config/python/pythonrc
-!/.config/rc/alias.rc
-!/.config/sheldon/plugins.toml
-!/.config/starship.toml
-!/.config/vim/vimrc
-!/.config/zellij/config.kdl
-!/.config/zellij/config.yaml
-!/.config/zellij/README.md
-!/.config/zellij/layouts/dev.kdl
-!/.config/zellij/scripts/**
-!/.config/zsh/.zshrc
-!/.config/zsh/base.zsh
-!/.config/zsh/bindkey.zsh
-!/.config/zsh/completion.zsh
-!/.config/zsh/function.zsh
-!/.config/zsh/history.zsh
-!/.config/zsh/hooks/history.zsh
-!/.config/zsh/hooks/proto.zsh
-
-### zsh
-!/.zshenv
-
-## global
-!/README.md
-!/.gitignore
-!/Makefile
-!/LICENSE
-
-## vscode
-!/.vscode/settings.json
+# OS and editor state
+.DS_Store
+*.swp
+*.swo
+*~

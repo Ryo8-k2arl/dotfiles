@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+# Re-run when the Sheldon plugin manifest changes.
+# Sheldon config checksum: {{ include "dot_config/sheldon/plugins.toml" | sha256sum }}
+
+if ! command -v sheldon >/dev/null 2>&1; then
+  printf '%s\n' \
+    'sheldon is not installed; skipping plugin installation.' \
+    'Install sheldon, then run: sheldon lock'
+  exit 0
+fi
+
+sheldon --non-interactive lock

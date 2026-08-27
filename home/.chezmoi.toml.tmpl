@@ -1,0 +1,22 @@
+{{- $hostTypes := list "desktop" "laptop" "server" -}}
+{{- $hostType := promptChoiceOnce . "hostType" "Host type" $hostTypes "desktop" -}}
+{{- $gitName := promptStringOnce . "gitName" "Git user name" -}}
+{{- $gitEmail := promptStringOnce . "gitEmail" "Git email address" -}}
+{{- $enableHyprland := promptBoolOnce . "enableHyprland" "Install Hyprland configuration" (and (eq .chezmoi.os "linux") (ne $hostType "server")) -}}
+{{- $zellijFileCommand := promptStringOnce . "zellijFileCommand" "Zellij file pane command" "ft" -}}
+{{- $zellijGitCommand := promptStringOnce . "zellijGitCommand" "Zellij Git pane command" "keifu" -}}
+{{- $osid := .chezmoi.os -}}
+{{- if hasKey .chezmoi.osRelease "id" -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+sourceDir = {{ .chezmoi.sourceDir | quote }}
+
+[data]
+    hostType = {{ $hostType | quote }}
+    osid = {{ $osid | quote }}
+    gitName = {{ $gitName | quote }}
+    gitEmail = {{ $gitEmail | quote }}
+    enableHyprland = {{ $enableHyprland }}
+    zellijFileCommand = {{ $zellijFileCommand | quote }}
+    zellijGitCommand = {{ $zellijGitCommand | quote }}

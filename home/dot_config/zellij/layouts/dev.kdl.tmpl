@@ -1,0 +1,50 @@
+// .config/zellij/layouts/dev.kdl
+
+layout {
+  // Use the current dir when `zellij --layout dev`
+  cwd ""
+
+  pane size=1 borderless=true {
+    plugin location="tab-bar"
+  }
+
+  pane split_direction="vertical" {
+    pane {
+      stacked true
+      pane {
+        name "File"
+        size "80%"
+        close_on_exit true
+        expanded true
+        command {{ .zellijFileCommand | quote }}
+      }
+      pane {
+        name "Git"
+        size "80%"
+        close_on_exit true
+        command {{ .zellijGitCommand | quote }}
+      }
+    }
+    pane split_direction="horizontal" size="80%" {
+      pane size="80%" {
+        focus true
+        stacked true
+
+        pane {
+          name "Editor"
+          focus true
+
+          command "sh"
+          args "-c" "exec \"${XDG_CONFIG_HOME:-$HOME/.config}/zellij/scripts/zellij-nvim-editor.sh\""
+        }
+
+        pane name="Agent"
+
+        pane name="Terminal"
+      }
+    }
+  }
+  pane size=1 borderless=true {
+    plugin location="status-bar"
+  }
+}

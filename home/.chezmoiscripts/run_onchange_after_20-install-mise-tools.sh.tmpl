@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+# Re-run when the global mise tool manifest changes.
+# mise config checksum: {{ include "dot_config/mise/config.toml" | sha256sum }}
+
+if ! command -v mise >/dev/null 2>&1; then
+  printf '%s\n' \
+    'mise is not installed; skipping portable tool installation.' \
+    'Install mise, then run: mise install'
+  exit 0
+fi
+
+mise install --yes

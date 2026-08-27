@@ -1,26 +1,146 @@
 # dotfiles
 
-## Rust development with LazyVim
+Personal development environment managed by [chezmoi](https://www.chezmoi.io/), with host-specific configuration for Linux distributions and multiple machines.
 
-The Rust toolchain is managed by the existing Cargo environment. Neovim tooling is declared entirely through LazyVim and Mason:
+## Highlights
 
-- Cargo environment: `rustc`, Cargo, Clippy, rustfmt, and the Rust standard library
-- Mason: rust-analyzer and codelldb
-- LazyExtras: Rust language support, tests, and debugging
-- `lazy-lock.json`: reproducible plugin versions
+- Chezmoi templates for host-specific Git, Hyprland, latexindent, and Zellij settings
+- Portable CLI versions managed by mise
+- LazyVim configuration with Rust, Python, LaTeX, testing, and debugging support
+- Zellij development workspace with Git worktree selection and one Neovim server per tab
+- Source state isolated under `home/`; repository documentation is never deployed into `$HOME`
+- Repeatable validation against an isolated temporary home
 
-With the Rust toolchain already available, start Neovim once. LazyVim installs the plugins and Mason installs the editor tools automatically:
+## Repository layout
 
-```sh
-nvim
+```text
+.
+├── .chezmoiroot              # Selects home/ as the source-state root
+├── .chezmoiversion           # Minimum supported chezmoi version
+├── home/
+│   ├── .chezmoi.toml.tmpl    # Per-host initialization prompts
+│   ├── .chezmoiignore        # Conditional host exclusions
+│   ├── .chezmoiscripts/      # Idempotent post-apply actions
+│   ├── dot_config/           # Target: ~/.config
+│   ├── dot_local/            # Target: ~/.local
+│   └── dot_zshenv            # Target: ~/.zshenv
+├── docs/
+├── scripts/
+└── Makefile
 ```
 
-Open a Rust project at its Cargo workspace root. Useful commands and keymaps include:
+Chezmoi source attributes are encoded in filenames:
 
-- `:LspInfo`: check the rust-analyzer connection
-- `:Mason`: check rust-analyzer and codelldb installation
-- `:LazyFormatInfo`: check rustfmt formatting
-- `<leader>cR`: Rust code actions
-- `<leader>tt`: run tests in the current file
-- `<leader>tr`: run the nearest test
-- `<leader>dr`: select a Rust debug target
+- `dot_foo` becomes `.foo`
+- `executable_foo` is installed with executable permissions
+- `private_foo` is installed without group/world permissions
+- `*.tmpl` is rendered with host data
+- `symlink_foo` creates a symbolic link
+
+## Requirements
+
+Install these with the current distribution's package manager:
+
+- `git`
+- `chezmoi >= 2.70`
+- `zsh`
+- `mise` (recommended; portable tools are skipped when it is absent)
+
+TeX Live, Hyprland, fonts, and other system-integrated packages remain distribution-managed. The global mise manifest installs pinned user-space tools such as Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship, and Sheldon.
+
+## Install on a new host
+
+Install chezmoi, then initialize from GitHub:
+
+```sh
+chezmoi init --apply --ssh Ryo8-k2arl
+```
+
+During initialization, chezmoi asks for:
+
+- host type: `desktop`, `laptop`, or `server`
+- Git name and email
+- whether Hyprland configuration should be installed
+- commands used by the Zellij file and Git panes
+
+Defaults for the Zellij pane commands are `ft` and `keifu`. Enter alternatives available on that host when these custom tools are not installed.
+
+Inspect before applying when setting up an important host:
+
+```sh
+chezmoi init --ssh Ryo8-k2arl
+chezmoi diff
+chezmoi apply
+```
+
+## Use this existing clone
+
+```sh
+chezmoi init --source "$PWD"
+chezmoi diff --source "$PWD"
+chezmoi apply --source "$PWD"
+```
+
+Equivalent Make targets are available:
+
+```sh
+make init
+make diff
+make apply
+```
+
+## Daily workflow
+
+Edit source state and apply it:
+
+```sh
+chezmoi edit ~/.config/nvim/lua/config/options.lua
+chezmoi diff
+chezmoi apply
+```
+
+Import changes made directly to a managed target:
+
+```sh
+chezmoi re-add ~/.config/nvim/lua/config/options.lua
+```
+
+Pull the repository and apply changes:
+
+```sh
+chezmoi update
+```
+
+Machine-local values live in `~/.config/chezmoi/chezmoi.toml`, not in this repository. Run `chezmoi init --prompt` to update answers from `.chezmoi.toml.tmpl`.
+
+## Validation
+
+```sh
+make check
+```
+
+The check renders the complete target state into a temporary home and validates:
+
+- chezmoi templates and target paths
+- file permissions and symlinks
+- POSIX shell and Zsh syntax
+- Lua and JSON syntax
+- Git configuration includes
+- Zellij configuration and the `dev` layout
+- absence of hard-coded `/home/<user>` paths
+
+## Documentation
+
+- [Zellij development layout](docs/zellij.md)
+- [LaTeX and LazyVim](docs/latex.md)
+
+## Local and private data
+
+Git identity is rendered from machine-local chezmoi data into `~/.config/git/conf.d/user.local` with private permissions. Do not add credentials, histories, caches, or application state to `home/` unless they are intentionally templated or encrypted.
+
+Before publishing changes, review both views:
+
+```sh
+git status --short
+chezmoi diff
+```
