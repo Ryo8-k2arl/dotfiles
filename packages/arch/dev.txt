@@ -1,0 +1,3 @@
+texlive-basic
+texlive-binextra
+texlive-latexextra

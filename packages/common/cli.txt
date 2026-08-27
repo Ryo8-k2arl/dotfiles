@@ -1,0 +1,6 @@
+# Package names shared by the supported Linux distributions.
+git
+zsh
+curl
+jq
+make
