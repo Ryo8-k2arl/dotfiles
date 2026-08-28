@@ -79,7 +79,7 @@ export FZF_GIT_REPO_SEARCH_OPTS="
 			echo \" \$FZF_MATCH_COUNT matches for [\$FZF_QUERY] \"
 		fi
 	'
-	--bind 'ctrl-r:change-list-label( Reloading the list )+reload(sleep 2; git ls-files)'
+	--bind 'ctrl-x:change-list-label( Reloading the list )+reload(\"${XDG_CONFIG_HOME}/fzf/scripts/git-repositories.sh\")'
 	--color 'border:#aaaaaa,label:#cccccc'
 	--color 'preview-border:#9999cc,preview-label:#ccccff'
 	--color 'list-border:#669966,list-label:#99cc99'
