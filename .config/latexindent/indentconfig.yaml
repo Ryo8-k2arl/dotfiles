@@ -1,3 +1,0 @@
-# Paths must be absolute; latexindent does not expand XDG variables here.
-paths:
-  - /home/ryo.drg/.config/latexindent/settings.yaml
