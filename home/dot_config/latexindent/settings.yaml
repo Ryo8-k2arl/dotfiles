@@ -2,3 +2,18 @@ defaultIndent: "  "
 
 maxNumberOfBackUps: 3
 cycleThroughBackUps: 1
+
+# Keep tabularray-style tables aligned even if upstream defaults change.
+lookForAlignDelims:
+  tblr:
+    delims: 1
+    lookForChildCodeBlocks: 1
+  longtblr:
+    delims: 1
+    lookForChildCodeBlocks: 1
+  talltblr:
+    delims: 1
+    lookForChildCodeBlocks: 1
+  spreadtab:
+    delims: 1
+    lookForChildCodeBlocks: 1
