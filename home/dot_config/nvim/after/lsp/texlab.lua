@@ -8,12 +8,13 @@ return {
 		texlab = {
 			build = {
 				executable = "latexmk",
-				args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-				onSave = false,
+				-- The user-wide latexmkrc chooses the engine and output directory.
+				args = { "-interaction=nonstopmode", "-synctex=1", "%f" },
+				onSave = true,
 				forwardSearchAfter = false,
 			},
 			chktex = {
-				onOpenAndSave = false,
+				onOpenAndSave = true,
 				onEdit = false,
 			},
 			latexFormatter = "latexindent",

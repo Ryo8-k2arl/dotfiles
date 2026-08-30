@@ -13,11 +13,19 @@ return {
 			preset = "enter",
 
 			-- Enter 補完候補があるときは確定、ないときは通常のEnter
-			["<CR>"] = { "accept", "fallback" },
+			["<CR>"] = {
+				"accept",
+				function()
+					return require("config.latex").item_newline()
+				end,
+				"fallback",
+			},
+			-- Alt-Enter always inserts a regular newline inside list environments.
+			["<M-CR>"] = { "fallback" },
 
-			-- Tab / Shift-Tab: 候補移動
-			["<Tab>"] = { "select_next", "fallback" },
-			["<S-Tab>"] = { "select_prev", "fallback" },
+			-- Tab / Shift-Tab: snippet placeholderを優先し、それ以外では候補移動
+			["<Tab>"] = { "snippet_forward", "select_next", "fallback" },
+			["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
 
 			-- Esc: 候補があるときは閉じる。ないときは通常の Normal modea
 			["<Esc>"] = { "cancel", "fallback" },
@@ -35,6 +43,10 @@ return {
 			},
 			menu = {
 				auto_show = true,
+			},
+			documentation = {
+				auto_show = true,
+				auto_show_delay_ms = 300,
 			},
 			list = {
 				selection = {

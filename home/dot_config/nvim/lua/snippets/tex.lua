@@ -27,6 +27,7 @@ return {
 				i(1, "htbp"),
 				i(2, "img/"),
 				i(3, "caption"),
+				i(4, "label"),
 			},
 			{
 				delimiters = "<>",
