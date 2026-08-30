@@ -351,6 +351,11 @@ web_client {
 //   - false
 // 
 // pane_frames false
+
+// Keep the minimal 0.45 title frames, but render stacks in the pre-0.45
+// in-place style so collapsed panes remain visible above and below.
+pane_frame_style "titles"
+stacked_pane_list false
  
 // When attaching to an existing session with other users,
 // should the session be mirrored (true)
