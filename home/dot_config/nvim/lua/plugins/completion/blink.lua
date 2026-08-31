@@ -35,7 +35,36 @@ return {
 			preset = "luasnip",
 		},
 
+		sources = {
+			per_filetype = {
+				tex = { inherit_defaults = true, "latex_environments" },
+				plaintex = { inherit_defaults = true, "latex_environments" },
+			},
+			providers = {
+				latex_environments = {
+					name = "Environment",
+					module = "blink.cmp.sources.complete_func",
+					score_offset = 10,
+					opts = {
+						complete_func = function()
+							return "v:lua.require'config.latex'.environment_omnifunc"
+						end,
+					},
+					transform_items = function(_, items)
+						return require("config.latex").environment_items(items)
+					end,
+				},
+			},
+		},
+
 		completion = {
+			accept = {
+				auto_brackets = {
+					-- Environment expansion is handled by the dedicated VimTeX source;
+					-- regular commands such as \maketitle must not gain an empty argument.
+					blocked_filetypes = { "tex", "plaintex" },
+				},
+			},
 			trigger = {
 				-- Rust keywords such as `pub`, `fn`, and `struct` should open the menu while typing.
 				show_on_keyword = true,

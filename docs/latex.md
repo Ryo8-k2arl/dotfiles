@@ -46,6 +46,16 @@ TexLab は保存時にビルドします。VimTeX の compiler、viewer、TexLab
 
 TexLab の command、environment、citation、label、file 補完に加え、LuaSnip から friendly-snippets の LaTeX Workshop 互換 snippet を読み込みます。候補は入力中に自動表示され、選択すると説明も表示されます。展開後は `Tab` / `Shift-Tab` で placeholder 間を移動します。
 
+通常の command 補完はコマンド名だけを挿入し、`{}` は自動で追加しません。`\document`、`\align`、`\tblr` のように `\` に続けて環境名を入力し、`Environment` 候補を選ぶと、VimTeX が認識している環境を次の形に展開します。
+
+```tex
+\begin{environment}
+
+\end{environment}
+```
+
+環境候補には、現在の文書で読み込んだ package と文書内で定義した環境も含まれます。
+
 代表的な snippet trigger:
 
 | Trigger | 展開内容 |
