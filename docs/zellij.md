@@ -66,7 +66,7 @@ ${XDG_RUNTIME_DIR:-/tmp}/nvim-zellij-<uid>/nvim-<session>-<tab>.sock
 
 ### Session resurrection
 
-`post_command_discovery_hook` は、復元対象の Neovim command を `zellij-nvim-editor.sh` に置き換えます。復元後も古い socket path を再利用せず、現在の session と tab に対応した Neovim server を起動できます。
+`post_command_discovery_hook` は、復元対象の Neovim command（終了時に検出された `[nvim] <defunct>` を含む）を `zellij-nvim-editor.sh` に置き換えます。復元後も古い socket path を再利用せず、現在の session と tab に対応した Neovim server を起動できます。
 
 ## Requirements
 
