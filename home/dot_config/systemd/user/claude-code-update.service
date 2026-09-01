@@ -1,0 +1,8 @@
+[Unit]
+Description=Update Claude Code
+Documentation=https://docs.anthropic.com/en/docs/claude-code/getting-started
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/claude update
+TimeoutStartSec=10min

@@ -48,6 +48,9 @@ Install these with the current distribution's package manager:
 
 Mise is intentionally limited to Node.js and Bun. Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship, Sheldon, TeX Live, Hyprland, fonts, and other system-integrated tools remain distribution-managed.
 
+On Linux, the native Codex and Claude Code CLIs are updated daily by systemd
+user timers. Missed runs are triggered after the next login.
+
 ## Install on a new host
 
 Install chezmoi, then initialize from GitHub:

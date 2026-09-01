@@ -27,8 +27,17 @@ test -x "$test_home/.config/zellij/scripts/zellij-tab.sh"
 test -x "$test_home/.config/latexindent/bin/latexindent-wrapper"
 test -L "$test_home/.local/bin/latexindent"
 test -f "$test_home/.config/zsh/.zshrc"
+test -f "$test_home/.config/systemd/user/claude-code-update.service"
+test -f "$test_home/.config/systemd/user/claude-code-update.timer"
+test -f "$test_home/.config/systemd/user/codex-update.service"
+test -f "$test_home/.config/systemd/user/codex-update.timer"
 test "$(stat -c '%a' "$test_home/.config/git/conf.d/user.local")" = "600"
 test "$(readlink "$test_home/.local/bin/latexindent")" = "../../.config/latexindent/bin/latexindent-wrapper"
+
+resurrect_hook="$test_home/.config/zellij/scripts/zellij-resurrect-command.sh"
+editor_command="$test_home/.config/zellij/scripts/zellij-nvim-editor.sh"
+test "$(RESURRECT_COMMAND='[nvim] <defunct>' XDG_CONFIG_HOME="$test_home/.config" "$resurrect_hook")" = "$editor_command"
+test "$(RESURRECT_COMMAND='lazygit' XDG_CONFIG_HOME="$test_home/.config" "$resurrect_hook")" = "lazygit"
 
 server_data='{"hostType":"server","osid":"linux-test","gitName":"Test User","gitEmail":"test@example.com","enableHyprland":false,"zellijFileCommand":"ft","zellijGitCommand":"keifu"}'
 if chezmoi \
@@ -75,6 +84,12 @@ ZELLIJ_CONFIG_DIR="$test_home/.config/zellij" \
   zellij setup --check >/dev/null
 ZELLIJ_CONFIG_DIR="$test_home/.config/zellij" \
   zellij setup --dump-layout dev >/dev/null
+
+systemd-analyze verify \
+  "$test_home/.config/systemd/user/claude-code-update.service" \
+  "$test_home/.config/systemd/user/claude-code-update.timer" \
+  "$test_home/.config/systemd/user/codex-update.service" \
+  "$test_home/.config/systemd/user/codex-update.timer"
 
 if rg -n '/home/[^/[:space:]]+' "$repo_dir/home"; then
   printf '%s\n' 'hard-coded home directory detected' >&2

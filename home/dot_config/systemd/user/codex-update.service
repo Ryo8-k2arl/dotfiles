@@ -1,0 +1,8 @@
+[Unit]
+Description=Update Codex CLI
+Documentation=https://learn.chatgpt.com/docs/codex/cli
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/codex update
+TimeoutStartSec=10min
