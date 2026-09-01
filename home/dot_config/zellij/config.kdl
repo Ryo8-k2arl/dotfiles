@@ -352,9 +352,9 @@ web_client {
 // 
 // pane_frames false
 
-// Keep the minimal 0.45 title frames, but render stacks in the pre-0.45
-// in-place style so collapsed panes remain visible above and below.
-pane_frame_style "titles"
+// Restore the pre-0.45 full frames and in-place stacks so pane titles stay
+// left-aligned and collapsed panes remain visible above and below.
+pane_frame_style "full"
 stacked_pane_list false
  
 // When attaching to an existing session with other users,
