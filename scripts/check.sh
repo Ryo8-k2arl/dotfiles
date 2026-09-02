@@ -34,6 +34,10 @@ test -f "$test_home/.config/systemd/user/codex-update.timer"
 test "$(stat -c '%a' "$test_home/.config/git/conf.d/user.local")" = "600"
 test "$(readlink "$test_home/.local/bin/latexindent")" = "../../.config/latexindent/bin/latexindent-wrapper"
 
+cli_timer_script="$repo_dir/home/.chezmoiscripts/run_after_40-enable-cli-update-timers.sh.tmpl"
+test "$(chezmoi execute-template < "$cli_timer_script" | sed -n '1p')" = '#!/bin/sh'
+chezmoi execute-template < "$cli_timer_script" | sh -n
+
 resurrect_hook="$test_home/.config/zellij/scripts/zellij-resurrect-command.sh"
 editor_command="$test_home/.config/zellij/scripts/zellij-nvim-editor.sh"
 test "$(RESURRECT_COMMAND='[nvim] <defunct>' XDG_CONFIG_HOME="$test_home/.config" "$resurrect_hook")" = "$editor_command"
