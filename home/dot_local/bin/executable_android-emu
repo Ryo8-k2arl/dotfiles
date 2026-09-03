@@ -1,0 +1,133 @@
+#!/bin/sh
+#
+# Headless Android emulator control.
+#
+# `android emulator start` is deliberately not used: it has no headless
+# option, so it launches the windowed QEMU build, which links against
+# libpulse.so.0 and fails to start on a host without PulseAudio. The
+# emulator ships qemu-system-x86_64-headless alongside it, and that build
+# has no such dependency, so -no-window is both the headless path and the
+# path with fewer system requirements.
+
+set -eu
+
+xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
+sdk="${ANDROID_HOME:-$xdg_data/android/sdk}"
+emulator="$sdk/emulator/emulator"
+adb="$sdk/platform-tools/adb"
+boot_timeout="${ANDROID_EMU_BOOT_TIMEOUT:-300}"
+
+usage() {
+  cat <<'USAGE'
+Usage: android-emu <command> [avd]
+
+  start [avd]   Boot an AVD headlessly and wait until it is ready
+  stop          Shut down every running emulator
+  list          List the available AVDs
+  status        Show attached devices
+
+The AVD defaults to $ANDROID_EMU_AVD, otherwise the first one available.
+Create one with: android emulator create medium_phone
+USAGE
+}
+
+require() {
+  if [ ! -x "$1" ]; then
+    printf '%s\n' "not found: $1" >&2
+    printf '%s\n' 'Install the Android SDK first: chezmoi apply' >&2
+    exit 1
+  fi
+}
+
+default_avd() {
+  if [ -n "${ANDROID_EMU_AVD:-}" ]; then
+    printf '%s\n' "$ANDROID_EMU_AVD"
+    return 0
+  fi
+  "$emulator" -list-avds 2>/dev/null | sed -n '1p'
+}
+
+cmd_start() {
+  require "$emulator"
+  require "$adb"
+
+  avd="${1:-$(default_avd)}"
+  if [ -z "$avd" ]; then
+    printf '%s\n' 'No AVD exists. Create one with: android emulator create medium_phone' >&2
+    exit 1
+  fi
+
+  if "$adb" devices 2>/dev/null | grep -q '^emulator-'; then
+    printf '%s\n' 'An emulator is already running.'
+    "$adb" devices
+    return 0
+  fi
+
+  log_dir="${XDG_STATE_HOME:-$HOME/.local/state}/android"
+  mkdir -p "$log_dir"
+  log="$log_dir/emulator-$avd.log"
+
+  printf '%s\n' "Starting '$avd' headlessly (log: $log)"
+  "$emulator" -avd "$avd" \
+    -no-window \
+    -gpu swiftshader_indirect \
+    -no-audio \
+    -no-boot-anim \
+    >"$log" 2>&1 &
+
+  "$adb" wait-for-device
+
+  waited=0
+  while [ "$waited" -lt "$boot_timeout" ]; do
+    booted=$("$adb" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r' || true)
+    if [ "$booted" = "1" ]; then
+      printf '%s\n' "'$avd' is ready after ${waited}s."
+      "$adb" devices
+      return 0
+    fi
+    sleep 2
+    waited=$((waited + 2))
+  done
+
+  printf '%s\n' "'$avd' did not finish booting within ${boot_timeout}s; see $log" >&2
+  exit 1
+}
+
+cmd_stop() {
+  require "$adb"
+  stopped=0
+  for serial in $("$adb" devices | sed -n 's/^\(emulator-[0-9]*\)[[:space:]].*/\1/p'); do
+    printf '%s\n' "Stopping $serial"
+    "$adb" -s "$serial" emu kill >/dev/null 2>&1 || true
+    stopped=1
+  done
+
+  if [ "$stopped" -eq 0 ]; then
+    printf '%s\n' 'No emulator is running.'
+    return 0
+  fi
+
+  # `adb emu kill` returns before the process is gone, so a status check run
+  # immediately afterwards would still list the device.
+  waited=0
+  while [ "$waited" -lt 60 ]; do
+    if ! "$adb" devices 2>/dev/null | grep -q '^emulator-'; then
+      printf '%s\n' 'Stopped.'
+      return 0
+    fi
+    sleep 1
+    waited=$((waited + 1))
+  done
+
+  printf '%s\n' 'The emulator is still listed after 60s.' >&2
+  exit 1
+}
+
+case "${1:-}" in
+  start) shift; cmd_start "${1:-}" ;;
+  stop) cmd_stop ;;
+  list) require "$emulator"; "$emulator" -list-avds ;;
+  status) require "$adb"; "$adb" devices -l ;;
+  -h | --help | help | '') usage ;;
+  *) usage >&2; exit 2 ;;
+esac

@@ -6,3 +6,7 @@
 .config/systemd
 .config/systemd/**
 {{- end }}
+{{- if eq .hostType "server" }}
+.local/bin/android-emu
+.local/bin/android-shot
+{{- end }}

@@ -42,5 +42,7 @@ path=(
 	$CARGO_HOME/bin(N-/)
 	$RUSTUP_HOME/toolchains/*/bin(N-/)
   $NPM_CONFIG_PREFIX/bin(N-/)
+	$ANDROID_HOME/platform-tools(N-/)
+	$ANDROID_HOME/emulator(N-/)
 	$path
 )

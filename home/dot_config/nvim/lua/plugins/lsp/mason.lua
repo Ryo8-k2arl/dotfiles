@@ -8,6 +8,9 @@ return {
 				-- Rust
 				"rust-analyzer",
 
+				-- Kotlin / Android
+				"kotlin-lsp",
+
 				-- Python
 				"ruff",
 				"ty",

@@ -1,3 +1,6 @@
 gcc
 gcc-c++
 python3-devel
+
+# Android builds need no extra system packages here: the JDK comes from mise
+# and the SDK from the android CLI. The emulator is not installed on servers.

@@ -1,0 +1,61 @@
+#!/bin/sh
+#
+# Capture the running device's screen and show it without leaving the
+# terminal workflow.
+#
+# Alacritty implements no image protocol by design, so a PNG cannot be drawn
+# in the terminal itself. The viewers below are tried in order: chafa renders
+# to ANSI blocks and works in any truecolor terminal, an image viewer works
+# when a Wayland or X display is reachable (WSLg provides one), and
+# explorer.exe hands the file to Windows as a last resort under WSL.
+#
+# The screenshot is always written with --annotate, because
+# `android screen resolve` reports "No feature data" on a plain capture.
+
+set -eu
+
+state_dir="${XDG_STATE_HOME:-$HOME/.local/state}/android"
+output="${1:-$state_dir/screen.png}"
+
+if ! command -v android >/dev/null 2>&1; then
+  printf '%s\n' 'The android CLI is not installed; run: chezmoi apply' >&2
+  exit 1
+fi
+
+mkdir -p "$(dirname -- "$output")"
+android screen capture --output="$output" --annotate
+
+printf '%s\n' "$output"
+
+if [ -n "${ANDROID_SHOT_VIEWER:-}" ]; then
+  exec "$ANDROID_SHOT_VIEWER" "$output"
+fi
+
+if command -v chafa >/dev/null 2>&1; then
+  # Leave room for the prompt rather than filling the pane.
+  exec chafa --size "${ANDROID_SHOT_SIZE:-60x40}" "$output"
+fi
+
+for viewer in imv swayimg feh eog; do
+  if command -v "$viewer" >/dev/null 2>&1 &&
+    { [ -n "${WAYLAND_DISPLAY:-}" ] || [ -n "${DISPLAY:-}" ]; }
+  then
+    exec "$viewer" "$output"
+  fi
+done
+
+if command -v wslview >/dev/null 2>&1; then
+  exec wslview "$output"
+fi
+
+if command -v explorer.exe >/dev/null 2>&1; then
+  # explorer.exe needs a Windows path and exits non-zero even on success.
+  if command -v wslpath >/dev/null 2>&1; then
+    explorer.exe "$(wslpath -w "$output")" || true
+    exit 0
+  fi
+fi
+
+printf '%s\n' \
+  'No image viewer found. Install chafa to render it in the terminal:' \
+  '  sudo pacman -S --needed chafa' >&2

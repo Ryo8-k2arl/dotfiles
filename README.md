@@ -5,8 +5,8 @@ Personal development environment managed by [chezmoi](https://www.chezmoi.io/), 
 ## Highlights
 
 - Chezmoi templates for host-specific Git, Hyprland, latexindent, and Zellij settings
-- Node.js and Bun versions managed by mise
-- LazyVim configuration with Rust, Python, LaTeX, testing, and debugging support
+- Bun and the JDKs required by the Android Gradle Plugin are managed by mise
+- LazyVim configuration with Rust, Python, Kotlin, LaTeX, testing, and debugging support
 - Zellij development workspace with Git worktree selection and one Neovim server per tab
 - Source state isolated under `home/`; repository documentation is never deployed into `$HOME`
 - Repeatable validation against an isolated temporary home
@@ -44,9 +44,17 @@ Install these with the current distribution's package manager:
 - `git`
 - `chezmoi >= 2.70`
 - `zsh`
-- `mise` (recommended; Node.js and Bun installation is skipped when it is absent)
+- `mise` (recommended; Bun and JDK installation is skipped when it is absent)
 
-Mise is intentionally limited to Node.js and Bun. Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship, Sheldon, TeX Live, Hyprland, fonts, and other system-integrated tools remain distribution-managed.
+Mise is limited to Bun and the JDKs. The JDKs are an intentional exception: the
+Android Gradle Plugin pins an exact toolchain version, and distribution packages
+cannot be held at one. Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship,
+Sheldon, TeX Live, Hyprland, fonts, and other system-integrated tools remain
+distribution-managed.
+
+The Android SDK is managed by neither: the official `android` CLI is its own
+package manager, so a chezmoi script installs that CLI and lets it own the SDK
+under `~/.local/share/android`.
 
 On Linux, the native Codex and Claude Code CLIs are updated daily by systemd
 user timers. Missed runs are triggered after the next login.
@@ -137,6 +145,7 @@ The check renders the complete target state into a temporary home and validates:
 
 - [Zellij development layout](docs/zellij.md)
 - [LaTeX and LazyVim](docs/latex.md)
+- [Android and Kotlin without Android Studio](docs/android.md)
 
 ## Local and private data
 

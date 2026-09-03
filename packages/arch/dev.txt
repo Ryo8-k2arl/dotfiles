@@ -1,3 +1,11 @@
 texlive-basic
 texlive-binextra
 texlive-latexextra
+
+# Android development.
+# chafa renders screenshots as ANSI blocks; Alacritty has no image protocol.
+chafa
+# libpulse is only needed to run the emulator with a window. The headless
+# path (android-emu) uses qemu-system-x86_64-headless, which does not link
+# against it, so this is optional on build-only hosts.
+libpulse

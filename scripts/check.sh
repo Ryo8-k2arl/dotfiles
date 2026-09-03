@@ -31,12 +31,20 @@ test -f "$test_home/.config/systemd/user/claude-code-update.service"
 test -f "$test_home/.config/systemd/user/claude-code-update.timer"
 test -f "$test_home/.config/systemd/user/codex-update.service"
 test -f "$test_home/.config/systemd/user/codex-update.timer"
+test -x "$test_home/.local/bin/android-emu"
+test -x "$test_home/.local/bin/android-shot"
+test -f "$test_home/.local/share/gradle/gradle.properties"
+test -f "$test_home/.config/nvim/after/lsp/kotlin_lsp.lua"
 test "$(stat -c '%a' "$test_home/.config/git/conf.d/user.local")" = "600"
 test "$(readlink "$test_home/.local/bin/latexindent")" = "../../.config/latexindent/bin/latexindent-wrapper"
 
 cli_timer_script="$repo_dir/home/.chezmoiscripts/run_after_40-enable-cli-update-timers.sh.tmpl"
 test "$(chezmoi execute-template < "$cli_timer_script" | sed -n '1p')" = '#!/bin/sh'
 chezmoi execute-template < "$cli_timer_script" | sh -n
+
+android_sdk_script="$repo_dir/home/.chezmoiscripts/run_onchange_after_25-install-android-sdk.sh.tmpl"
+test "$(chezmoi execute-template < "$android_sdk_script" | sed -n '1p')" = '#!/bin/sh'
+chezmoi execute-template < "$android_sdk_script" | sh -n
 
 resurrect_hook="$test_home/.config/zellij/scripts/zellij-resurrect-command.sh"
 editor_command="$test_home/.config/zellij/scripts/zellij-nvim-editor.sh"
@@ -55,9 +63,22 @@ if chezmoi \
   exit 1
 fi
 
+if chezmoi \
+  --source "$repo_dir" \
+  --destination "$test_home" \
+  --persistent-state "$test_home/chezmoistate.boltdb" \
+  --cache "$test_home/cache" \
+  --override-data "$server_data" \
+  managed | grep -q '^\.local/bin/android-'; then
+  printf '%s\n' 'Emulator helpers were not excluded for the server profile' >&2
+  exit 1
+fi
+
 for script_file in \
   "$test_home"/.config/zellij/scripts/*.sh \
-  "$test_home/.config/latexindent/bin/latexindent-wrapper"
+  "$test_home/.config/latexindent/bin/latexindent-wrapper" \
+  "$test_home/.local/bin/android-emu" \
+  "$test_home/.local/bin/android-shot"
 do
   sh -n "$script_file"
 done

@@ -4,3 +4,6 @@ minimum_release_age = "14d"
 
 [tools]
 bun = "latest"
+# AGP 9 requires JDK 17 or newer; the generated Android projects pin
+# jvmToolchain(17), which Gradle resolves from the installations below.
+java = ["temurin-21", "temurin-17"]

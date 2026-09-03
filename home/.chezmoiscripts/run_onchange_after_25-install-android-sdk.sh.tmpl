@@ -1,0 +1,65 @@
+#!/bin/sh
+
+set -eu
+
+# Android command-line toolchain. Bumping any pin below re-runs this script.
+#
+# android_cli_channel: latest
+# sdk_platform:        android-36
+# sdk_build_tools:     36.0.0
+
+android_bin="$HOME/.local/bin/android"
+xdg_data="${XDG_DATA_HOME:-$HOME/.local/share}"
+sdk_dir="${ANDROID_HOME:-$xdg_data/android/sdk}"
+
+if ! command -v curl >/dev/null 2>&1; then
+  printf '%s\n' 'curl is not installed; skipping Android toolchain installation.'
+  exit 0
+fi
+
+# The vendor install.sh appends `export PATH=...` to ~/.zshrc or ~/.zshenv,
+# which would create an unmanaged diff against this repository. Fetch the
+# binary directly instead; ~/.local/bin is already on PATH via ~/.zshenv.
+if [ ! -x "$android_bin" ]; then
+  printf '%s\n' 'Installing the Android CLI into ~/.local/bin'
+  mkdir -p "$HOME/.local/bin"
+  tmp_bin=$(mktemp)
+  if curl -fsSL \
+    'https://dl.google.com/android/cli/latest/linux_x86_64/android' \
+    -o "$tmp_bin"
+  then
+    chmod +x "$tmp_bin"
+    mv "$tmp_bin" "$android_bin"
+  else
+    rm -f "$tmp_bin"
+    printf '%s\n' 'Failed to download the Android CLI; skipping.' >&2
+    exit 0
+  fi
+fi
+
+ANDROID_HOME="$sdk_dir"
+ANDROID_USER_HOME="${ANDROID_USER_HOME:-$xdg_data/android/user}"
+export ANDROID_HOME ANDROID_USER_HOME
+
+# Packages every host needs in order to build and sign an application.
+"$android_bin" sdk install \
+  platform-tools \
+  platforms/android-36 \
+  build-tools/36.0.0
+
+{{ if ne .hostType "server" -}}
+# Only interactive hosts run a device. No system image is installed here on
+# purpose: `android emulator create <profile>` selects and downloads its own
+# image, so pre-installing one only wastes disk.
+"$android_bin" sdk install emulator
+
+# An interrupted `android sdk install` leaves the package extracted but empty
+# while still writing package.xml, so `android sdk list` reports it as
+# installed and `--force` does not repair it. Detect that and reinstall.
+if [ -d "$sdk_dir/emulator" ] && [ ! -x "$sdk_dir/emulator/emulator" ]; then
+  printf '%s\n' 'The emulator package is incomplete; reinstalling it.'
+  "$android_bin" sdk remove emulator || true
+  rm -rf "$sdk_dir/emulator"
+  "$android_bin" sdk install emulator
+fi
+{{- end }}
