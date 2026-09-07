@@ -46,6 +46,37 @@ android_sdk_script="$repo_dir/home/.chezmoiscripts/run_onchange_after_25-install
 test "$(chezmoi execute-template < "$android_sdk_script" | sed -n '1p')" = '#!/bin/sh'
 chezmoi execute-template < "$android_sdk_script" | sh -n
 
+skill_link_script="$repo_dir/home/.chezmoiscripts/run_after_35-link-agent-skills.sh"
+plugin_script="$repo_dir/home/.chezmoiscripts/run_onchange_after_36-install-agent-plugins.sh"
+sh -n "$skill_link_script"
+sh -n "$plugin_script"
+
+agent_home="$test_home/agent-home"
+mkdir -p \
+  "$agent_home/.config/agent-skills/example-skill" \
+  "$agent_home/.claude/skills" \
+  "$agent_home/.codex/skills/.system"
+printf '%s\n' '---' 'name: example-skill' 'description: Example.' '---' \
+  >"$agent_home/.config/agent-skills/example-skill/SKILL.md"
+ln -s "$agent_home/.config/agent-skills/removed-skill" \
+  "$agent_home/.codex/skills/removed-skill"
+ln -s /nonexistent/foreign-skill "$agent_home/.codex/skills/foreign-skill"
+
+# Linking is idempotent, so a second apply must converge on the same links.
+HOME="$agent_home" XDG_CONFIG_HOME="$agent_home/.config" sh "$skill_link_script"
+HOME="$agent_home" XDG_CONFIG_HOME="$agent_home/.config" sh "$skill_link_script"
+
+test -L "$agent_home/.claude/skills/example-skill"
+test -f "$agent_home/.claude/skills/example-skill/SKILL.md"
+test -L "$agent_home/.codex/skills/example-skill"
+# A link into the canonical directory whose skill is gone is pruned; a link
+# owned by the agent, and the agent's own skills, are not.
+test ! -L "$agent_home/.codex/skills/removed-skill"
+test -L "$agent_home/.codex/skills/foreign-skill"
+test -d "$agent_home/.codex/skills/.system"
+# Agents that are not installed on the host stay uninstalled.
+test ! -e "$agent_home/.gemini"
+
 resurrect_hook="$test_home/.config/zellij/scripts/zellij-resurrect-command.sh"
 editor_command="$test_home/.config/zellij/scripts/zellij-nvim-editor.sh"
 test "$(RESURRECT_COMMAND='[nvim] <defunct>' XDG_CONFIG_HOME="$test_home/.config" "$resurrect_hook")" = "$editor_command"
