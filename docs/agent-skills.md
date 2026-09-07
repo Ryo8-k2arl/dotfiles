@@ -70,6 +70,8 @@ DietrichGebert/ponytail ponytail@ponytail claude,codex
 '
 ```
 
+plugin は skill と違って実行環境を要求することがあります。Ponytail の hook は `node <hook>.js` として起動されるため、Node 本体が PATH 上に必要です。これは `home/dot_config/mise/config.toml` の `[tools]` で宣言しています。
+
 marketplace の追加と plugin の導入は、どちらの CLI でも冪等です。宣言済みの marketplace と導入済みの plugin はそのまま成功扱いになるため、スクリプトは独自の状態を持ちません。Claude Code へは user scope で導入します。
 
 `claude plugin install` に `--yes` は渡しません。marketplace がコマンド実行を伴う導入方法を宣言している場合、そのコマンドは各ホストで一度は対話的に確認するべきだからです。

@@ -5,7 +5,7 @@ Personal development environment managed by [chezmoi](https://www.chezmoi.io/), 
 ## Highlights
 
 - Chezmoi templates for host-specific Git, Hyprland, latexindent, and Zellij settings
-- Bun and the JDKs required by the Android Gradle Plugin are managed by mise
+- Bun, Node.js, and the JDKs required by the Android Gradle Plugin are managed by mise
 - LazyVim configuration with Rust, Python, Kotlin, LaTeX, testing, and debugging support
 - Zellij development workspace with Git worktree selection and one Neovim server per tab
 - Agent skills defined once under `~/.config/agent-skills` and linked into Claude Code, Codex, and Gemini CLI
@@ -47,9 +47,10 @@ Install these with the current distribution's package manager:
 - `zsh`
 - `mise` (recommended; Bun and JDK installation is skipped when it is absent)
 
-Mise is limited to Bun and the JDKs. The JDKs are an intentional exception: the
+Mise is limited to Bun, Node.js, and the JDKs. The JDKs are an intentional exception: the
 Android Gradle Plugin pins an exact toolchain version, and distribution packages
-cannot be held at one. Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship,
+cannot be held at one. Node.js is present for the Ponytail agent plugin, whose
+hooks are launched as `node <hook>.js`. Neovim, Zellij, fzf, ghq, eza, delta, lazygit, starship,
 Sheldon, TeX Live, Hyprland, fonts, and other system-integrated tools remain
 distribution-managed.
 

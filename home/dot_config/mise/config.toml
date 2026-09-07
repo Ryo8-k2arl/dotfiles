@@ -7,3 +7,6 @@ bun = "latest"
 # AGP 9 requires JDK 17 or newer; the generated Android projects pin
 # jvmToolchain(17), which Gradle resolves from the installations below.
 java = ["temurin-21", "temurin-17"]
+# The Ponytail agent plugin launches its hooks as `node <hook>.js`, so the
+# Node runtime has to be on PATH under that name; Bun does not answer to it.
+node = "latest"
