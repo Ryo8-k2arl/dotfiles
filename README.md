@@ -8,6 +8,7 @@ Personal development environment managed by [chezmoi](https://www.chezmoi.io/), 
 - Bun and the JDKs required by the Android Gradle Plugin are managed by mise
 - LazyVim configuration with Rust, Python, Kotlin, LaTeX, testing, and debugging support
 - Zellij development workspace with Git worktree selection and one Neovim server per tab
+- Agent skills defined once under `~/.config/agent-skills` and linked into Claude Code, Codex, and Gemini CLI
 - Source state isolated under `home/`; repository documentation is never deployed into `$HOME`
 - Repeatable validation against an isolated temporary home
 
@@ -139,6 +140,7 @@ The check renders the complete target state into a temporary home and validates:
 - Lua and JSON syntax
 - Git configuration includes
 - Zellij configuration and the `dev` layout
+- agent skill linking, including pruning and repeated application
 - absence of hard-coded `/home/<user>` paths
 
 ## Documentation
@@ -146,6 +148,7 @@ The check renders the complete target state into a temporary home and validates:
 - [Zellij development layout](docs/zellij.md)
 - [LaTeX and LazyVim](docs/latex.md)
 - [Android and Kotlin without Android Studio](docs/android.md)
+- [Agent skills across Claude Code, Codex, and Gemini](docs/agent-skills.md)
 
 ## Local and private data
 
