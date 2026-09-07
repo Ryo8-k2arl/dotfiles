@@ -71,9 +71,13 @@ TexLab の command、environment、citation、label、file 補完に加え、Lua
 
 `latexindent`は`tblr`、`longtblr`、`talltblr`、`spreadtab`を表として扱い、セル区切りの`&`と行末の`\\`を整列します。セル内の`{ ... }`はchild code blockとして保護するため、その中の`\\`は行末delimiterに含めません。
 
+リスト環境では、`\item`の後続ブロックに追加のインデントを付けず、`\item`と同じインデント位置を基準にします。そのため、`itemize`や`enumerate`の中に追加した環境は、現在の`\item`と同じ位置から自然にネストされます。
+
 ## latexindent の生成物
 
 wrapper は、編集中のディレクトリを汚さないようにログとバックアップを XDG state/cache 配下へ移動します。
+
+Mason の Linux 版が新しいディストリビューションで必要とする `libcrypt.so.1` がない場合は、wrapper が XDG cache 内に `libcrypt.so.2` の互換リンクを作成します。システムのライブラリは変更しません。
 
 ```text
 ${XDG_STATE_HOME:-~/.local/state}/latexindent/

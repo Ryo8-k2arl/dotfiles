@@ -3,6 +3,22 @@ defaultIndent: "  "
 maxNumberOfBackUps: 3
 cycleThroughBackUps: 1
 
+# Keep standard list environments item-aware even if upstream defaults change.
+indentAfterItems:
+  itemize: 1
+  itemize*: 1
+  enumerate: 1
+  enumerate*: 1
+  description: 1
+  description*: 1
+  list: 1
+
+# Keep an item's body at the same indentation as the item itself. This makes
+# nested environments start beside `\item`, instead of inheriting the deeper
+# continuation column after `\item `.
+noAdditionalIndent:
+  item: 1
+
 # Keep tabularray-style tables aligned even if upstream defaults change.
 lookForAlignDelims:
   tblr:

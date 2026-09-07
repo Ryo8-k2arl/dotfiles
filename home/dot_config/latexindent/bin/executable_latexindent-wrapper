@@ -12,6 +12,36 @@ if [ ! -x "$latexindent_bin" ]; then
   exit 127
 fi
 
+# The Mason Linux release currently bundles a runtime that asks for
+# libcrypt.so.1. Newer distributions provide the compatible libcrypt.so.2
+# instead. Keep the compatibility link in our private cache so the bundled
+# binary can run without changing system libraries or requiring root access.
+prepare_runtime() {
+  compat_lib_dir=$cache_home/latexindent/lib
+  compat_lib=$compat_lib_dir/libcrypt.so.1
+  if [ ! -e "$compat_lib" ]; then
+    for candidate in \
+      /usr/lib/libcrypt.so.2 \
+      /usr/lib/*/libcrypt.so.2 \
+      /usr/lib64/libcrypt.so.2 \
+      /lib/libcrypt.so.2 \
+      /lib/*/libcrypt.so.2 \
+      /lib64/libcrypt.so.2
+    do
+      if [ -f "$candidate" ]; then
+        mkdir -p "$compat_lib_dir"
+        ln -s "$candidate" "$compat_lib"
+        break
+      fi
+    done
+  fi
+  if [ -e "$compat_lib" ]; then
+    export LD_LIBRARY_PATH="$compat_lib_dir${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+  fi
+}
+
+prepare_runtime
+
 for arg in "$@"; do
   case $arg in
     -h | --help | -v | --version)
