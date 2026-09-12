@@ -10,8 +10,9 @@ return {
 				executable = "latexmk",
 				-- The user-wide latexmkrc chooses the engine and output directory.
 				args = { "-interaction=nonstopmode", "-synctex=1", "%f" },
-				onSave = true,
+				onSave = false,
 				forwardSearchAfter = false,
+				useFileList = true,
 			},
 			chktex = {
 				onOpenAndSave = true,

@@ -2,7 +2,7 @@
 
 LazyVim の公式 TeX extra を基盤に、VimTeX、TexLab、latexmk、latexindent を使う設定です。PDF preview は将来ターミナル内に実装するため、現在は設定していません。
 
-TexLab は補完、参照ジャンプ、診断、整形、保存時ビルドを担当します。VimTeX は Syntax Highlight、モーション、text object、環境操作などの LaTeX 固有の編集機能を担当します。ビルドの重複を避けるため VimTeX の compiler は無効です。
+TexLab は補完、参照ジャンプ、診断、整形、手動ビルドを担当します。VimTeX は Syntax Highlight、モーション、text object、環境操作などの LaTeX 固有の編集機能を担当します。ビルドの重複を避けるため VimTeX の compiler は無効です。
 
 ## 構成
 
@@ -40,7 +40,7 @@ LaTeX buffer では LazyVim/VimTeX の標準操作に加えて、次の設定を
 | `<localleader>lb` | TexLab で一度だけビルド |
 | `vim.lsp.buf.format()` | TexLab 経由で latexindent を実行 |
 
-TexLab は保存時にビルドします。VimTeX の compiler、viewer、TexLab の forward search は無効なので、PDF に関する処理は起動しません。
+TexLab は保存時にビルドせず、`<localleader>lb` で手動ビルドします。VimTeX の compiler、viewer、TexLab の forward search は無効なので、保存時に PDF 関連の処理は起動しません。
 
 ## 補完と list 編集
 
