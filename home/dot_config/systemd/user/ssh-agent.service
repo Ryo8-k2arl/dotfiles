@@ -1,0 +1,9 @@
+[Unit]
+Description=SSH agent
+
+[Service]
+Type=simple
+ExecStart=ssh-agent -D -a %t/ssh-agent.socket
+
+[Install]
+WantedBy=default.target

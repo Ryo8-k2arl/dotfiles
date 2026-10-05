@@ -10,5 +10,9 @@ then
   systemctl --user enable --now \
     claude-code-update.timer \
     codex-update.timer
+
+  if command -v ssh-agent >/dev/null 2>&1; then
+    systemctl --user enable --now ssh-agent.service
+  fi
 fi
 {{- end }}
