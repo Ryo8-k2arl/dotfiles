@@ -31,6 +31,10 @@ test -f "$test_home/.config/systemd/user/claude-code-update.service"
 test -f "$test_home/.config/systemd/user/claude-code-update.timer"
 test -f "$test_home/.config/systemd/user/codex-update.service"
 test -f "$test_home/.config/systemd/user/codex-update.timer"
+test -f "$test_home/.config/systemd/user/ssh-agent.service"
+test "$(HOME="$test_home" XDG_RUNTIME_DIR="$test_home/runtime" zsh -dfc \
+  'source "$HOME/.zshenv"; print -r -- "$SSH_AUTH_SOCK"')" = \
+  "$test_home/runtime/ssh-agent.socket"
 test -x "$test_home/.local/bin/android-emu"
 test -x "$test_home/.local/bin/android-shot"
 test -f "$test_home/.local/share/gradle/gradle.properties"
@@ -145,7 +149,8 @@ systemd-analyze verify \
   "$test_home/.config/systemd/user/claude-code-update.service" \
   "$test_home/.config/systemd/user/claude-code-update.timer" \
   "$test_home/.config/systemd/user/codex-update.service" \
-  "$test_home/.config/systemd/user/codex-update.timer"
+  "$test_home/.config/systemd/user/codex-update.timer" \
+  "$test_home/.config/systemd/user/ssh-agent.service"
 
 if rg -n '/home/[^/[:space:]]+' "$repo_dir/home"; then
   printf '%s\n' 'hard-coded home directory detected' >&2
