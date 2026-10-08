@@ -9,30 +9,28 @@ layout {
   }
 
   pane split_direction="vertical" {
-    pane {
-      stacked true
+    // Left: File / Git (15%)
+    pane size="15%" stacked=true {
       pane {
         name "File"
-        size "80%"
         close_on_exit true
         expanded true
         command {{ .zellijFileCommand | quote }}
       }
       pane {
         name "Git"
-        size "80%"
         close_on_exit true
         command {{ .zellijGitCommand | quote }}
       }
     }
-    pane split_direction="horizontal" size="80%" {
-      pane size="80%" {
-        focus true
-        stacked true
 
-        pane {
+    // Right: Editor / Agent / Terminal (85%)
+
+    pane split_direction="horizontal" size="85%" {
+      pane size="85%" stacked=true {
+
+        pane focus=true {
           name "Editor"
-          focus true
 
           command "sh"
           args "-c" "exec \"${XDG_CONFIG_HOME:-$HOME/.config}/zellij/scripts/zellij-nvim-editor.sh\""
